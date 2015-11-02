@@ -11,8 +11,10 @@ public:
     explicit NewWindow(QWidget *parent = 0);
     ~NewWindow();
     void showSimplePlot(QCustomPlot *customPlot);
-private:
+    void setupPlot();
 
+private:
+    NewWindow *window;
 
 };
 

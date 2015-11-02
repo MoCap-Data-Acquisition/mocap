@@ -1,9 +1,16 @@
 #include "displayplot.h"
-NewWindow::NewWindow(QWidget *parent) : QMainWindow(parent)
+NewWindow::NewWindow(QWidget *parent) : QMainWindow(parent), window(new NewWindow)
 {
 
 }
 NewWindow::~NewWindow(){}
+void NewWindow::setupPlot()
+{
+    showSimplePlot(this);
+    setWindowTitle("Simple Plot Example");
+    statusBar()->clearMessage();
+   // customPlot->replot();
+}
 
 void NewWindow::showSimplePlot(QCustomPlot *customPlot)
 {
