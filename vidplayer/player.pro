@@ -20,14 +20,16 @@ HEADERS = \
     videowidget.h \
     histogramwidget.h \
     histogramwidget.h \
-    qcustomplot.h
+    qcustomplot.h \
+    displayplot.h
 SOURCES = main.cpp \
     player.cpp \
     playercontrols.cpp \
     playlistmodel.cpp \
     videowidget.cpp \
     histogramwidget.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    displayplot.cpp
 
 maemo* {
     DEFINES += PLAYER_NO_COLOROPTIONS
