@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "plotwindow.h"
+#include "player.h"
 namespace Ui {
 class MainWindow;
 }
@@ -17,6 +18,7 @@ public:
 public slots:
     void openDisplayPlot();
 private:
+    Player* player;
     Ui::MainWindow *ui;
    // NewWindow *displayPlotWindow;
     PlotWindow *displayPlotWindow;

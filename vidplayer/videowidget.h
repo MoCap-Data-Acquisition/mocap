@@ -2,12 +2,16 @@
 #define VIDEOWIDGET_H
 
 #include <QVideoWidget>
+#include <QVector>
 
 class VideoWidget : public QVideoWidget
 {
     Q_OBJECT
 
 public:
+    QVector<qint64>* xCoord = new QVector<qint64>;
+    QVector<qint64>* yCoord = new QVector<qint64>;
+    QVector<qint64>* tCoord = new QVector<qint64>;
     VideoWidget(QWidget *parent = 0);
 
 protected:

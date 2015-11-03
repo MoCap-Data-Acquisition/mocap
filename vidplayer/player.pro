@@ -7,6 +7,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 TEMPLATE = app
 TARGET = player
 
+CONFIG += c++11
+
 QT += network \
       xml \
       multimedia \

@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "player.h"
 #include <QApplication>
 #include <QtGui>
 #include <QHBoxLayout>
@@ -11,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    Player* player = new Player;
+    player = new Player;
     QPushButton *displayDataBtn = new QPushButton("display data", this);
     connect(displayDataBtn, SIGNAL(clicked()), this, SLOT(openDisplayPlot()));
 
@@ -33,6 +32,6 @@ MainWindow::~MainWindow()
 }
 void MainWindow::openDisplayPlot()
 {
-    displayPlotWindow = new PlotWindow();
+    displayPlotWindow = new PlotWindow(*(player->videoWidget->tCoord),*(player->videoWidget->xCoord),*(player->videoWidget->yCoord), this);
     displayPlotWindow->show();
 }

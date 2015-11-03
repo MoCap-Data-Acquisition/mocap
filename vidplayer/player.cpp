@@ -203,9 +203,9 @@ void Player::positionChanged(qint64 progress)
 {
     if (!slider->isSliderDown()) {
         slider->setValue(progress / 1000);
-        this->millisecondsPassed = progress;
+//        millisecondsPassed = progress;
     }
-    this->millisecondsPassed += progress;
+    timeinMillis = progress; // I think this is how it should be but can't test it...
     updateDurationInfo(progress / 1000);
 }
 

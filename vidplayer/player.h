@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
+#include <QVideoFrame>
 //#include "displayplot.h"
 
 class QAbstractItemView;
@@ -26,7 +27,9 @@ class Player : public QWidget
 
 public:
     Player(QWidget *parent = 0);
+    qint64 timeinMillis;
     ~Player();
+    VideoWidget *videoWidget;
 
 //public slots:
    //void openDisplayPlot();
@@ -34,8 +37,6 @@ signals:
     void fullScreenChanged(bool fullScreen);
 
 private slots:
-
-   // int getProgress();
     void open();
     void durationChanged(qint64 duration);
     void positionChanged(qint64 progress);
@@ -52,7 +53,6 @@ private slots:
     void videoAvailableChanged(bool available);
 
     void displayErrorMessage();
-
   //  void displayPlotWindow();
 
 #ifndef PLAYER_NO_COLOROPTIONS
@@ -68,7 +68,7 @@ private:
 
     QMediaPlayer *player;
     QMediaPlaylist *playlist;
-    VideoWidget *videoWidget;
+//    VideoWidget *videoWidget; making this public....
     QLabel *coverLabel;
     QSlider *slider;
     QLabel *labelDuration;
@@ -92,7 +92,6 @@ private:
     QString trackInfo;
     QString statusInfo;
     qint64 duration;
-    qint64 millisecondsPassed;
 };
 
 #endif // PLAYER_H
