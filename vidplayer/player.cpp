@@ -92,9 +92,9 @@ Player::Player(QWidget *parent)
     fullScreenButton->setCheckable(true);
 
     //Graphing Button
-    plotDataButton = new QPushButton(tr("Plot Data"), this);
-    plotDataButton->setEnabled(true);
-    connect(plotDataButton, SIGNAL(clicked()), this, SLOT(displayPlotWindow()));
+//    plotDataButton = new QPushButton(tr("Plot Data"), this);
+  //  plotDataButton->setEnabled(true);
+   // connect(plotDataButton, SIGNAL(clicked()), this, SLOT(displayPlotWindow()));
 
 #ifndef PLAYER_NO_COLOROPTIONS
     colorButton = new QPushButton(tr("Color Options..."), this);
@@ -114,7 +114,7 @@ Player::Player(QWidget *parent)
     controlLayout->addStretch(1);
     controlLayout->addWidget(fullScreenButton);
     //Graphing Button
-    controlLayout->addWidget(plotDataButton);
+  //  controlLayout->addWidget(plotDataButton);
 #ifndef PLAYER_NO_COLOROPTIONS
     controlLayout->addWidget(colorButton);
 #endif
@@ -138,7 +138,7 @@ Player::Player(QWidget *parent)
         controls->setEnabled(false);
         playlistView->setEnabled(false);
         openButton->setEnabled(false);
-        plotDataButton->setEnabled(true);
+     //   plotDataButton->setEnabled(true);
 #ifndef PLAYER_NO_COLOROPTIONS
         colorButton->setEnabled(false);
 #endif
@@ -156,16 +156,16 @@ Player::~Player()
 {
 }
 
-void Player::openDisplayPlot()
-{
-    newPlotWindow = new NewWindow();
+//void Player::openDisplayPlot()
+//{
+//    newPlotWindow = new NewWindow();
 
-    newPlotWindow->show();
-}
-void Player::displayPlotWindow()
-{
-   openDisplayPlot();
-}
+//    newPlotWindow->show();
+//}
+//void Player::displayPlotWindow()
+//{
+//   openDisplayPlot();
+//}
 
 void Player::open()
 {

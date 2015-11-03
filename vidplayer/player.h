@@ -6,7 +6,7 @@
 #include <QWidget>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
-#include "displayplot.h"
+//#include "displayplot.h"
 
 class QAbstractItemView;
 class QLabel;
@@ -28,8 +28,8 @@ public:
     Player(QWidget *parent = 0);
     ~Player();
 
-public slots:
-   void openDisplayPlot();
+//public slots:
+   //void openDisplayPlot();
 signals:
     void fullScreenChanged(bool fullScreen);
 
@@ -51,7 +51,7 @@ private slots:
 
     void displayErrorMessage();
 
-    void displayPlotWindow();
+  //  void displayPlotWindow();
 
 #ifndef PLAYER_NO_COLOROPTIONS
     void showColorDialog();
@@ -71,10 +71,10 @@ private:
     QSlider *slider;
     QLabel *labelDuration;
     QPushButton *fullScreenButton;
-    QPushButton *plotDataButton;
-    QDialog *plotData;
+   // QPushButton *plotDataButton;
+    //QDialog *plotData;
 
-    NewWindow *newPlotWindow;
+    //NewWindow *newPlotWindow;
 
 #ifndef PLAYER_NO_COLOROPTIONS
     QPushButton *colorButton;

@@ -1,20 +1,24 @@
-#include "displayplot.h"
-NewWindow::NewWindow(QWidget *parent) : QMainWindow(parent)
+#include "plotwindow.h"
+#include "ui_plotwindow.h"
+#include "mainwindow.h"
+
+PlotWindow::PlotWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::PlotWindow)
 {
+    ui->setupUi(this);
+    setGeometry(400, 250, 542, 390);
+    setupDisplayTest();
 }
-NewWindow::~NewWindow(){}
-void NewWindow::setupPlot()
+void PlotWindow::setupDisplayTest()
 {
-    customPlot = new QCustomPlot;
-    setWindowTitle("Simple Plot Example");
+    setupSimpleDemo(ui->customPlot);
+    setWindowTitle("Custom Plot Test");
     statusBar()->clearMessage();
-    showSimplePlot(customPlot);
-    //customPlot->replot();
+    ui->customPlot->replot();
 }
-
-void NewWindow::showSimplePlot(QCustomPlot *customPlot)
+void PlotWindow::setupSimpleDemo(QCustomPlot *customPlot)
 {
-
     // generate some data:
     QVector<double> x(101), y(101); // initialize with entries 0..100
     for (int i=0; i<101; ++i)
@@ -32,5 +36,9 @@ void NewWindow::showSimplePlot(QCustomPlot *customPlot)
     customPlot->xAxis->setRange(-1, 1);
     customPlot->yAxis->setRange(0, 1);
     //customPlot->replot();
+}
 
+PlotWindow::~PlotWindow()
+{
+    delete ui;
 }

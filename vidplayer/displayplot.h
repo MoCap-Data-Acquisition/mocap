@@ -10,11 +10,13 @@ class NewWindow : public QMainWindow
 public:
     explicit NewWindow(QWidget *parent = 0);
     ~NewWindow();
-    void showSimplePlot(QCustomPlot *customPlot);
     void setupPlot();
+    void showSimplePlot(QCustomPlot *customPlot);
+    QCustomPlot *customPlot;
 
 private:
-    NewWindow *window;
+   // NewWindow *window;
+    //QCustomPlot *customPlot;
 
 };
 

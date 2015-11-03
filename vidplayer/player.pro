@@ -21,7 +21,8 @@ HEADERS = \
     histogramwidget.h \
     histogramwidget.h \
     qcustomplot.h \
-    displayplot.h
+    mainwindow.h \
+    plotwindow.h
 SOURCES = main.cpp \
     player.cpp \
     playercontrols.cpp \
@@ -29,7 +30,8 @@ SOURCES = main.cpp \
     videowidget.cpp \
     histogramwidget.cpp \
     qcustomplot.cpp \
-    displayplot.cpp
+    mainwindow.cpp \
+    plotwindow.cpp
 
 maemo* {
     DEFINES += PLAYER_NO_COLOROPTIONS
@@ -37,3 +39,7 @@ maemo* {
 
 target.path = $$[QT_INSTALL_EXAMPLES]/multimediawidgets/player
 INSTALLS += target
+
+FORMS += \
+    mainwindow.ui \
+    plotwindow.ui
