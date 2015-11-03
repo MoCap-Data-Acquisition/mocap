@@ -47,7 +47,7 @@ Player::Player(QWidget *parent)
     connect(playlistView, SIGNAL(activated(QModelIndex)), this, SLOT(jump(QModelIndex)));
 
     slider = new QSlider(Qt::Horizontal, this);
-    slider->setRange(0, player->duration() / 1000);
+    slider->setRange(0, (player->duration() / 1000));
 
     labelDuration = new QLabel(this);
     connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(seek(int)));
@@ -167,6 +167,7 @@ Player::~Player()
 //   openDisplayPlot();
 //}
 
+
 void Player::open()
 {
     QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Open Files"));
@@ -194,7 +195,7 @@ void Player::addToPlaylist(const QStringList& fileNames)
 
 void Player::durationChanged(qint64 duration)
 {
-    this->duration = duration/1000;
+    this->duration = duration / 1000;
     slider->setMaximum(duration / 1000);
 }
 
@@ -202,7 +203,9 @@ void Player::positionChanged(qint64 progress)
 {
     if (!slider->isSliderDown()) {
         slider->setValue(progress / 1000);
+        this->millisecondsPassed = progress;
     }
+    this->millisecondsPassed += progress;
     updateDurationInfo(progress / 1000);
 }
 

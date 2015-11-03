@@ -34,6 +34,8 @@ signals:
     void fullScreenChanged(bool fullScreen);
 
 private slots:
+
+   // int getProgress();
     void open();
     void durationChanged(qint64 duration);
     void positionChanged(qint64 progress);
@@ -90,6 +92,7 @@ private:
     QString trackInfo;
     QString statusInfo;
     qint64 duration;
+    qint64 millisecondsPassed;
 };
 
 #endif // PLAYER_H
