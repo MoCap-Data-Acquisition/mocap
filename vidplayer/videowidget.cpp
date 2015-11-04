@@ -1,8 +1,10 @@
 
 #include "videowidget.h"
+#include "player.h"
 
 #include <QKeyEvent>
 #include <QMouseEvent>
+#include <iostream>
 
 VideoWidget::VideoWidget(QWidget *parent)
     : QVideoWidget(parent)
@@ -38,6 +40,6 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
 {
     xCoord->append(event->x());
     yCoord->append(event->y());
-//    tCoord->append(timeinMillis); HELP NOT SURE HOW TO MAKE THIS WORK
+    tCoord->append(((Player*)parentWidget())->timeinMillis);
     QVideoWidget::mousePressEvent(event);
 }
