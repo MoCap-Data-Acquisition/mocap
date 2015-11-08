@@ -55,9 +55,6 @@ private slots:
     void displayErrorMessage();
   //  void displayPlotWindow();
 
-#ifndef PLAYER_NO_COLOROPTIONS
-    void showColorDialog();
-#endif
     void addToPlaylist(const QStringList &fileNames);
 
 private:
@@ -72,20 +69,11 @@ private:
     QLabel *coverLabel;
     QSlider *slider;
     QLabel *labelDuration;
-    QPushButton *fullScreenButton;
    // QPushButton *plotDataButton;
     //QDialog *plotData;
 
     //NewWindow *newPlotWindow;
 
-#ifndef PLAYER_NO_COLOROPTIONS
-    QPushButton *colorButton;
-    QDialog *colorDialog;
-#endif
-
-    QLabel *labelHistogram;
-    HistogramWidget *histogram;
-    QVideoProbe *probe;
 
     PlaylistModel *playlistModel;
     QAbstractItemView *playlistView;

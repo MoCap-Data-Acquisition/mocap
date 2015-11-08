@@ -2,7 +2,7 @@
 
 #include "playercontrols.h"
 #include "playlistmodel.h"
-#include "histogramwidget.h"
+
 
 #include <QMediaService>
 #include <QMediaPlaylist>
@@ -15,9 +15,7 @@ Player::Player(QWidget *parent)
     , videoWidget(0)
     , coverLabel(0)
     , slider(0)
-#ifndef PLAYER_NO_COLOROPTIONS
-    , colorDialog(0)
-#endif
+
 {
     player = new QMediaPlayer(this);
     // owned by PlaylistModel
@@ -52,25 +50,12 @@ Player::Player(QWidget *parent)
     labelDuration = new QLabel(this);
     connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(seek(int)));
 
-    labelHistogram = new QLabel(this);
-    labelHistogram->setText("Histogram:");
-    histogram = new HistogramWidget(this);
-    QHBoxLayout *histogramLayout = new QHBoxLayout;
-    histogramLayout->addWidget(labelHistogram);
-    histogramLayout->addWidget(histogram, 1);
-
-    probe = new QVideoProbe(this);
-    connect(probe, SIGNAL(videoFrameProbed(QVideoFrame)), histogram, SLOT(processFrame(QVideoFrame)));
-    probe->setSource(player);
-
     QPushButton *openButton = new QPushButton(tr("Open"), this);
 
     connect(openButton, SIGNAL(clicked()), this, SLOT(open()));
 
     PlayerControls *controls = new PlayerControls(this);
     controls->setState(player->state());
-    controls->setVolume(player->volume());
-    controls->setMuted(controls->isMuted());
 
     connect(controls, SIGNAL(play()), player, SLOT(play()));
     connect(controls, SIGNAL(pause()), player, SLOT(pause()));
@@ -88,19 +73,12 @@ Player::Player(QWidget *parent)
     connect(player, SIGNAL(volumeChanged(int)), controls, SLOT(setVolume(int)));
     connect(player, SIGNAL(mutedChanged(bool)), controls, SLOT(setMuted(bool)));
 
-    fullScreenButton = new QPushButton(tr("FullScreen"), this);
-    fullScreenButton->setCheckable(true);
-
     //Graphing Button
 //    plotDataButton = new QPushButton(tr("Plot Data"), this);
   //  plotDataButton->setEnabled(true);
    // connect(plotDataButton, SIGNAL(clicked()), this, SLOT(displayPlotWindow()));
 
-#ifndef PLAYER_NO_COLOROPTIONS
-    colorButton = new QPushButton(tr("Color Options..."), this);
-    colorButton->setEnabled(false);
-    connect(colorButton, SIGNAL(clicked()), this, SLOT(showColorDialog()));
-#endif
+
 
     QBoxLayout *displayLayout = new QHBoxLayout;
     displayLayout->addWidget(videoWidget, 2);
@@ -112,12 +90,10 @@ Player::Player(QWidget *parent)
     controlLayout->addStretch(1);
     controlLayout->addWidget(controls);
     controlLayout->addStretch(1);
-    controlLayout->addWidget(fullScreenButton);
+
     //Graphing Button
   //  controlLayout->addWidget(plotDataButton);
-#ifndef PLAYER_NO_COLOROPTIONS
-    controlLayout->addWidget(colorButton);
-#endif
+
 
     QBoxLayout *layout = new QVBoxLayout;
     layout->addLayout(displayLayout);
@@ -126,7 +102,7 @@ Player::Player(QWidget *parent)
     hLayout->addWidget(labelDuration);
     layout->addLayout(hLayout);
     layout->addLayout(controlLayout);
-    layout->addLayout(histogramLayout);
+
 
     setLayout(layout);
 
@@ -139,21 +115,19 @@ Player::Player(QWidget *parent)
         playlistView->setEnabled(false);
         openButton->setEnabled(false);
      //   plotDataButton->setEnabled(true);
-#ifndef PLAYER_NO_COLOROPTIONS
-        colorButton->setEnabled(false);
-#endif
-        fullScreenButton->setEnabled(false);
-    }
+
 
     metaDataChanged();
 
     QStringList arguments = qApp->arguments();
     arguments.removeAt(0);
     addToPlaylist(arguments);
+    }
 }
 
 Player::~Player()
 {
+
 }
 
 //void Player::openDisplayPlot()
@@ -301,24 +275,6 @@ void Player::bufferingProgress(int progress)
 
 void Player::videoAvailableChanged(bool available)
 {
-    if (!available) {
-        disconnect(fullScreenButton, SIGNAL(clicked(bool)),
-                    videoWidget, SLOT(setFullScreen(bool)));
-        disconnect(videoWidget, SIGNAL(fullScreenChanged(bool)),
-                fullScreenButton, SLOT(setChecked(bool)));
-        videoWidget->setFullScreen(false);
-    } else {
-        connect(fullScreenButton, SIGNAL(clicked(bool)),
-                videoWidget, SLOT(setFullScreen(bool)));
-        connect(videoWidget, SIGNAL(fullScreenChanged(bool)),
-                fullScreenButton, SLOT(setChecked(bool)));
-
-        if (fullScreenButton->isChecked())
-            videoWidget->setFullScreen(true);
-    }
-#ifndef PLAYER_NO_COLOROPTIONS
-    colorButton->setEnabled(available);
-#endif
 }
 
 void Player::setTrackInfo(const QString &info)
@@ -358,49 +314,3 @@ void Player::updateDurationInfo(qint64 currentInfo)
     labelDuration->setText(tStr);
 }
 
-#ifndef PLAYER_NO_COLOROPTIONS
-void Player::showColorDialog()
-{
-    if (!colorDialog) {
-        QSlider *brightnessSlider = new QSlider(Qt::Horizontal);
-        brightnessSlider->setRange(-100, 100);
-        brightnessSlider->setValue(videoWidget->brightness());
-        connect(brightnessSlider, SIGNAL(sliderMoved(int)), videoWidget, SLOT(setBrightness(int)));
-        connect(videoWidget, SIGNAL(brightnessChanged(int)), brightnessSlider, SLOT(setValue(int)));
-
-        QSlider *contrastSlider = new QSlider(Qt::Horizontal);
-        contrastSlider->setRange(-100, 100);
-        contrastSlider->setValue(videoWidget->contrast());
-        connect(contrastSlider, SIGNAL(sliderMoved(int)), videoWidget, SLOT(setContrast(int)));
-        connect(videoWidget, SIGNAL(contrastChanged(int)), contrastSlider, SLOT(setValue(int)));
-
-        QSlider *hueSlider = new QSlider(Qt::Horizontal);
-        hueSlider->setRange(-100, 100);
-        hueSlider->setValue(videoWidget->hue());
-        connect(hueSlider, SIGNAL(sliderMoved(int)), videoWidget, SLOT(setHue(int)));
-        connect(videoWidget, SIGNAL(hueChanged(int)), hueSlider, SLOT(setValue(int)));
-
-        QSlider *saturationSlider = new QSlider(Qt::Horizontal);
-        saturationSlider->setRange(-100, 100);
-        saturationSlider->setValue(videoWidget->saturation());
-        connect(saturationSlider, SIGNAL(sliderMoved(int)), videoWidget, SLOT(setSaturation(int)));
-        connect(videoWidget, SIGNAL(saturationChanged(int)), saturationSlider, SLOT(setValue(int)));
-
-        QFormLayout *layout = new QFormLayout;
-        layout->addRow(tr("Brightness"), brightnessSlider);
-        layout->addRow(tr("Contrast"), contrastSlider);
-        layout->addRow(tr("Hue"), hueSlider);
-        layout->addRow(tr("Saturation"), saturationSlider);
-
-        QPushButton *button = new QPushButton(tr("Close"));
-        layout->addRow(button);
-
-        colorDialog = new QDialog(this);
-        colorDialog->setWindowTitle(tr("Color Options"));
-        colorDialog->setLayout(layout);
-
-        connect(button, SIGNAL(clicked()), colorDialog, SLOT(close()));
-    }
-    colorDialog->show();
-}
-#endif

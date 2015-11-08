@@ -20,8 +20,6 @@ HEADERS = \
     playercontrols.h \
     playlistmodel.h \
     videowidget.h \
-    histogramwidget.h \
-    histogramwidget.h \
     qcustomplot.h \
     mainwindow.h \
     plotwindow.h
@@ -30,7 +28,6 @@ SOURCES = main.cpp \
     playercontrols.cpp \
     playlistmodel.cpp \
     videowidget.cpp \
-    histogramwidget.cpp \
     qcustomplot.cpp \
     mainwindow.cpp \
     plotwindow.cpp
