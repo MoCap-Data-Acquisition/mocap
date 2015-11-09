@@ -13,25 +13,12 @@ struct point_t
    double time;
    QColor color;
 
-   point_t(const int myID, const int myX, const int myY, const double t, const QColor c) {
-       myID = ID;
-       myX = x;
-       myY = y;
-       t = time;
-       c = color;
-   }
+   point_t();
+   point_t(const int myID, const int myX, const int myY, const double t, const QColor c);
 };
 
-QVector<point_t> points;
+extern QVector<point_t> points;
 
-QVector<const point_t&> filterID(int id) {
-   QVector<point_t> po();
-   for (auto& p : points) {
-       if (p.myID == id) {
-           po.append(p);
-       }
-   }
-}
-
+QVector<point_t> filterID(int id);
 
 #endif

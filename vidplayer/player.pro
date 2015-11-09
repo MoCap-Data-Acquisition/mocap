@@ -23,7 +23,8 @@ HEADERS = \
     qcustomplot.h \
     mainwindow.h \
     plotwindow.h \
-    pointstruct.h
+    pointstruct.h \
+    pointtocsv.h
 SOURCES = main.cpp \
     player.cpp \
     playercontrols.cpp \
@@ -31,7 +32,9 @@ SOURCES = main.cpp \
     videowidget.cpp \
     qcustomplot.cpp \
     mainwindow.cpp \
-    plotwindow.cpp
+    plotwindow.cpp \
+    pointstruct.cpp \
+    pointtocsv.cpp
 
 maemo* {
     DEFINES += PLAYER_NO_COLOROPTIONS
