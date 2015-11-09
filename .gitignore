@@ -1,0 +1,9 @@
+*.o
+vidplayer/player
+vidplayer/player.app
+moc_*
+ui_*
+*.pro.user
+*.exe
+Makefile*
+.qmake.stash
