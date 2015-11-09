@@ -6,7 +6,10 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     MainWindow w;
-    w.show();
+    w.setWindowFlags(Qt::CustomizeWindowHint
+                     | Qt::WindowCloseButtonHint);
+    w.showMaximized();
+
     //Player player;
 
 //#if defined(Q_WS_SIMULATOR)
