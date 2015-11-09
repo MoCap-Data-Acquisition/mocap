@@ -22,7 +22,8 @@ HEADERS = \
     videowidget.h \
     qcustomplot.h \
     mainwindow.h \
-    plotwindow.h
+    plotwindow.h \
+    pointstruct.h
 SOURCES = main.cpp \
     player.cpp \
     playercontrols.cpp \
