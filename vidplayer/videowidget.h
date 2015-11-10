@@ -3,6 +3,9 @@
 
 #include <QVideoWidget>
 #include <QVector>
+#include <QtGui>
+#include <QDebug>
+#include "pointstruct.h"
 
 class VideoWidget : public QVideoWidget
 {
@@ -18,6 +21,18 @@ protected:
     void keyPressEvent(QKeyEvent *event);
     void mouseDoubleClickEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent *event);
+
+    void paintEvent(QPaintEvent *event)
+    {
+        qDebug() << Q_FUNC_INFO;
+        QPainter painter(this);
+        //painter.setPen(Qt::SolidLine);
+        Q_FOREACH(point_t point, points) {
+            qDebug() << "Drawing Point: (" << point.x << ", " << point.y << ")";
+            painter.setPen(QPen(Qt::red, 2, Qt::SolidLine));
+            painter.drawEllipse(point.x, point.y, 2, 2);
+        }
+    }
 };
 
 #endif // VIDEOWIDGET_H

@@ -9,7 +9,7 @@
 #include <QVideoProbe>
 #include <QMediaMetaData>
 #include <QtWidgets>
-
+#include <QShortcut>
 Player::Player(QWidget *parent)
     : QWidget(parent)
     , videoWidget(0)

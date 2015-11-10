@@ -4,7 +4,11 @@
 
 #include <QKeyEvent>
 #include <QMouseEvent>
+#include <QPainter>
 #include <iostream>
+
+#include "pointstruct.h"
+
 
 VideoWidget::VideoWidget(QWidget *parent)
     : QVideoWidget(parent)
@@ -28,12 +32,16 @@ void VideoWidget::keyPressEvent(QKeyEvent *event)
     } else {
         QVideoWidget::keyPressEvent(event);
     }
+
+//    if(event->key() == Qt::Key_Space) {
+//  }
+
 }
 
 void VideoWidget::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    setFullScreen(!isFullScreen());
-    event->accept();
+    /*setFullScreen(!isfullscreen());
+    event->accept();*/
 }
 
 void VideoWidget::mousePressEvent(QMouseEvent *event)
@@ -42,4 +50,5 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
     yCoord->append(event->y());
     tCoord->append(((Player*)parentWidget())->timeinMillis);
     QVideoWidget::mousePressEvent(event);
+    update();
 }

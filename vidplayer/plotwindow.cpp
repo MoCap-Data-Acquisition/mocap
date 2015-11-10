@@ -40,8 +40,8 @@ void PlotWindow::setupSimpleDemo(QCustomPlot *customPlot, const QVector<qint64> 
     customPlot->xAxis->setLabel("x");
     customPlot->yAxis->setLabel("y");
     // set axes ranges, so we see all data:
-    customPlot->xAxis->setRange(-1, 1);
-    customPlot->yAxis->setRange(0, 1);
+    customPlot->xAxis->setRange(0, 500);
+    customPlot->yAxis->setRange(0, 500);
     //customPlot->replot();
 }
 

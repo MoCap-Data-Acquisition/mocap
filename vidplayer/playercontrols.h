@@ -14,19 +14,15 @@ class PlayerControls : public QWidget
 
 public:
     PlayerControls(QWidget *parent = 0);
-
     QMediaPlayer::State state() const;
 
 public slots:
     void setState(QMediaPlayer::State state);
-
+    void playClicked();
 signals:
     void play();
     void pause();
     void stop();
-
-private slots:
-    void playClicked();
 
 private:
     QMediaPlayer::State playerState;
