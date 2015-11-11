@@ -1,6 +1,7 @@
 #include "playercontrols.h"
 
 #include <QBoxLayout>
+#include <QShortcut>
 #include <QSlider>
 #include <QStyle>
 #include <QToolButton>
@@ -17,6 +18,7 @@ PlayerControls::PlayerControls(QWidget *parent)
     playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
 
     connect(playButton, SIGNAL(clicked()), this, SLOT(playClicked()));
+    playButton->setShortcut(Qt::Key_Space);
 
     stopButton = new QToolButton(this);
     stopButton->setIcon(style()->standardIcon(QStyle::SP_MediaStop));

@@ -14,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QPushButton *displayDataBtn = new QPushButton("display data", this);
     connect(displayDataBtn, SIGNAL(clicked()), this, SLOT(openDisplayPlot()));
 
-
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(player);
     layout->addWidget(displayDataBtn);
@@ -26,10 +25,24 @@ MainWindow::MainWindow(QWidget *parent) :
     MainWindow::setCentralWidget(window);
 }
 
+/*void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::RightArrow) {
+        player->frameUp();
+        event->accept();
+    } else if (event->key() == Qt::LeftArrow) {
+        player->frameDown();
+        event->accept();
+    } else {
+        MainWindow::keyPressEvent(event);
+    }
+}*/
+
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 void MainWindow::openDisplayPlot()
 {
     displayPlotWindow = new PlotWindow(*(player->videoWidget->tCoord),*(player->videoWidget->xCoord),*(player->videoWidget->yCoord), this);

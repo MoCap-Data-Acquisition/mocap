@@ -31,8 +31,10 @@ public:
     ~Player();
     VideoWidget *videoWidget;
 
-//public slots:
-   //void openDisplayPlot();
+public slots:
+    void frameUp();
+    void frameDown();
+    //void openDisplayPlot();
 signals:
     void fullScreenChanged(bool fullScreen);
 

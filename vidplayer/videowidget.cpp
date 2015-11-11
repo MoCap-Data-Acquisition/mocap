@@ -32,10 +32,6 @@ void VideoWidget::keyPressEvent(QKeyEvent *event)
     } else {
         QVideoWidget::keyPressEvent(event);
     }
-
-//    if(event->key() == Qt::Key_Space) {
-//  }
-
 }
 
 void VideoWidget::mouseDoubleClickEvent(QMouseEvent *event)
