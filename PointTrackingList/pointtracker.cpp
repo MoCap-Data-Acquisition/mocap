@@ -1,6 +1,8 @@
 #include "pointtracker.h"
 #include "ui_pointtracker.h"
 
+#include <QDebug>
+
 
 
 pointtracker::pointtracker(QWidget *parent) :
@@ -12,7 +14,6 @@ pointtracker::pointtracker(QWidget *parent) :
     //Data added
     //QStringList List;
     //List << "Test" << "Foo" << "Bar";
-    itemLists = QVector<QVector<QListWidgetItem> >();
     for(int i = 0; i < 10; ++i)
     {
         ui->pointsList->addItem("Item " + QString::number(i));
@@ -26,17 +27,17 @@ pointtracker::~pointtracker()
 void pointtracker::on_addObjectButton_clicked()
 {
     testObjectCount += 1;
-    QVector<QListWidgetItem> points = QVector<QListWidgetItem>();
-    QListWidgetItem newPoint;
+    QVector<QString> points;
+    QString newPoint;
     for (int i = 0; i < 5; ++i)
     {
-        newPoint = QListWidgetItem(("Test: " +  QString::number(i)));
+        newPoint = QString("Test: " +  QString::number(i));
         points.push_back(newPoint);
     }
     itemLists.append(points);
     ui->objectList->addItem("Object " + QString::number(testObjectCount));
     //Set newly made to index
-    ui->objectList->setCurrentIndex(ui->objectList->count());
+    ui->objectList->setCurrentIndex(ui->objectList->count() - 1);
     updateList();
 }
 void pointtracker::on_deletePointButton_clicked()
@@ -60,9 +61,9 @@ void pointtracker::on_deleteObjectButton_clicked()
 void pointtracker::updateList()
 {
     ui->pointsList->clear();
-    for (QListWidgetItem &item : itemLists[ui->objectList->currentIndex()])
+    for (QString &item : itemLists[ui->objectList->currentIndex()])
     {
-        ui->pointsList->addItem(&item);
+        ui->pointsList->addItem(item);
     }
 }
 
