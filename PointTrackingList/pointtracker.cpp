@@ -8,6 +8,7 @@ pointtracker::pointtracker(QWidget *parent) :
     ui(new Ui::pointtracker)
 {
     ui->setupUi(this);
+    QObject::connect(ui->objectList, SIGNAL(currentIndexChanged(int)), this, SLOT(on_listChanged()));
 }
 
 pointtracker::~pointtracker()
@@ -48,6 +49,11 @@ void pointtracker::on_deleteObjectButton_clicked()
         itemLists.removeAt(index);
         updateList();
     }
+}
+
+void pointtracker::on_listChanged()
+{
+    updateList();
 }
 
 void pointtracker::updateList()
