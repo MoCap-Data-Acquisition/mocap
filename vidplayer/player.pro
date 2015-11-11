@@ -24,7 +24,8 @@ HEADERS = \
     mainwindow.h \
     plotwindow.h \
     pointstruct.h \
-    pointtocsv.h
+    pointtocsv.h \
+    pointtracker.h
 SOURCES = main.cpp \
     player.cpp \
     playercontrols.cpp \
@@ -34,7 +35,8 @@ SOURCES = main.cpp \
     mainwindow.cpp \
     plotwindow.cpp \
     pointstruct.cpp \
-    pointtocsv.cpp
+    pointtocsv.cpp \
+    pointtracker.cpp
 
 maemo* {
     DEFINES += PLAYER_NO_COLOROPTIONS
@@ -45,4 +47,5 @@ INSTALLS += target
 
 FORMS += \
     mainwindow.ui \
-    plotwindow.ui
+    plotwindow.ui \
+    pointtracker.ui

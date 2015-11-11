@@ -34,7 +34,7 @@ void PlotWindow::setupSimpleDemo()
         xs[p.ID].append(p.x);
         ys[p.ID].append(p.y);
         time.append(p.time);
-     //   qDebug() << "yo";
+        qDebug() << "yo";
     }
     for (int id : ids) {
         ui->customPlotX->addGraph();

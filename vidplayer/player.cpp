@@ -83,8 +83,8 @@ Player::Player(QWidget *parent)
 
     QBoxLayout *displayLayout = new QHBoxLayout;
     displayLayout->addWidget(videoWidget, 2);
-    displayLayout->addWidget(playlistView);
-    //playlistView->hide();
+    //displayLayout->addWidget(playlistView);
+    playlistView->hide();
 
     QBoxLayout *controlLayout = new QHBoxLayout;
     controlLayout->setMargin(0);
