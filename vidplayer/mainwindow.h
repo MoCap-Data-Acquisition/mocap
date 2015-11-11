@@ -25,7 +25,7 @@ private:
     Player* player;
     Ui::MainWindow *ui;
    // NewWindow *displayPlotWindow;
-    PlotWindow *displayPlotWindow;
+    PlotWindow displayPlotWindow;
 };
 
 #endif // MAINWINDOW_H

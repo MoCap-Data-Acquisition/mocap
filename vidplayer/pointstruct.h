@@ -8,13 +8,13 @@
 struct point_t 
 {
    int ID;
-   int x;
-   int y;
-   double time;
+   double x;
+   double y;
+   int time;
    QColor color;
 
    point_t();
-   point_t(const int myID, const int myX, const int myY, const double t, const QColor c);
+   point_t(const int myID, const double myX, const double myY, const int t, const QColor c = QColor(0,0,0));
 };
 
 extern QVector<point_t> points;

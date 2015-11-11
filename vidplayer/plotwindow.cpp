@@ -1,47 +1,68 @@
 #include "plotwindow.h"
 #include "ui_plotwindow.h"
 #include "mainwindow.h"
+#include <unordered_set>
+#include <unordered_map>
+#include <algorithm>
 
-PlotWindow::PlotWindow(const QVector<qint64> &t, const QVector<qint64> &x, const QVector<qint64> &y, QWidget *parent) :
+PlotWindow::PlotWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::PlotWindow)
 {
     ui->setupUi(this);
     setGeometry(400, 250, 542, 390);
-    setupDisplayTest(t,x,y);
+//    setupDisplayTest();
 }
-void PlotWindow::setupDisplayTest(const QVector<qint64> &t, const QVector<qint64> &x, const QVector<qint64> &y)
+void PlotWindow::setupDisplayTest()
 {
-    setupSimpleDemo(ui->customPlotX, t, x);
-    setupSimpleDemo(ui->customPlotY, t, y);
+    setupSimpleDemo();
     setWindowTitle("Custom Plot Test");
     statusBar()->clearMessage();
     ui->customPlotX->replot();
     ui->customPlotY->replot();
 }
-void PlotWindow::setupSimpleDemo(QCustomPlot *customPlot, const QVector<qint64> &v1, const QVector<qint64> &v2)
+void PlotWindow::setupSimpleDemo()
 {
-    // generate some data:
-//    QVector<double> x(101), y(101); // initialize with entries 0..100
-//    for (int i=0; i<101; ++i)
-//    {
-//      x[i] = i/50.0 - 1; // x goes from -1 to 1
-//      y[i] = x[i]*x[i]; // let's plot a quadratic function
-//    }
-    // create graph and assign data to it:
-    customPlot->addGraph();
-    QVector<double> v1d(v1.length()), v2d(v2.length());
-    for (int i = 0; i < v1.length(); ++i) {
-        v1d[i] = v1[i];
-        v2d[i] = v2[i];
+
+    std::unordered_set<int> ids;
+    std::unordered_map<int, QVector<double> > xs;
+    std::unordered_map<int, QVector<double> > ys;
+    QVector<double> time;
+    qDebug() << "points: " << points.size();
+    for (point_t& p : points) {
+        ids.emplace(p.ID);
+        xs[p.ID].append(p.x);
+        ys[p.ID].append(p.y);
+        time.append(p.time);
+     //   qDebug() << "yo";
     }
-    customPlot->graph(0)->setData(v1d, v2d);
+    for (int id : ids) {
+        ui->customPlotX->addGraph();
+        ui->customPlotY->addGraph();
+        ui->customPlotX->graph(ui->customPlotX->graphCount()-1)->addData(time, xs[id]);
+        ui->customPlotY->graph(ui->customPlotY->graphCount()-1)->addData(time, ys[id]);
+    }
+
+
+
+//    customPlot->graph(0)->setData(x, t);
     // give the axes some labels:
-    customPlot->xAxis->setLabel("x");
-    customPlot->yAxis->setLabel("y");
+    ui->customPlotX->xAxis->setLabel("t");
+    ui->customPlotX->yAxis->setLabel("x");
+    ui->customPlotY->xAxis->setLabel("t");
+    ui->customPlotY->yAxis->setLabel("y");
     // set axes ranges, so we see all data:
-    customPlot->xAxis->setRange(0, 500);
-    customPlot->yAxis->setRange(0, 500);
+    double maxTime = *std::max_element(time.begin(),time.end());
+    double maxX = std::numeric_limits<double>::min();
+    double maxY = std::numeric_limits<double>::min();
+    for (const std::pair<int, QVector<double> >& pair : xs) {
+        maxX = std::max(*std::max_element(pair.second.begin(), pair.second.end()), maxX);
+        maxY = std::max(*std::max_element(ys[pair.first].begin(), ys[pair.first].end()), maxY);
+    }
+    ui->customPlotX->xAxis->setRange(0, maxTime);
+    ui->customPlotX->yAxis->setRange(0, 500);
+    ui->customPlotY->xAxis->setRange(0, maxTime);
+    ui->customPlotY->yAxis->setRange(0, 500);
     //customPlot->replot();
 }
 

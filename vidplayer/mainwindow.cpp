@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
         event->accept();
     } else if (event->key() == Qt::LeftArrow) {
         player->frameDown();
-        event->accept();
+        event->accept();QCustomPlot *customPlot, const QVector<qint64> &v1, const QVector<qint64> &v2
     } else {
         MainWindow::keyPressEvent(event);
     }
@@ -45,6 +45,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::openDisplayPlot()
 {
-    displayPlotWindow = new PlotWindow(*(player->videoWidget->tCoord),*(player->videoWidget->xCoord),*(player->videoWidget->yCoord), this);
-    displayPlotWindow->show();
+    displayPlotWindow.setupDisplayTest();
+    displayPlotWindow.show();
 }

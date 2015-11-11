@@ -7,7 +7,7 @@ point_t::point_t() {
     time = -1.0;
 }
 
-point_t::point_t(const int myID, const int myX, const int myY, const double t, const QColor c) {
+point_t::point_t(const int myID, const double myX, const double myY, const int t, const QColor c) {
     ID = myID;
     x = myX;
     y = myY;
