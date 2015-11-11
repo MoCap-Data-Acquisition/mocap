@@ -10,89 +10,94 @@
     <height>543</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>pointtracker</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QComboBox" name="objectList">
+   <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>301</width>
-      <height>25</height>
+      <y>0</y>
+      <width>311</width>
+      <height>531</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QPushButton" name="addObjectButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>340</y>
-      <width>301</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Object To Track</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="deletePointButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>410</y>
-      <width>141</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Delete Point</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="deleteObjectButton">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>410</y>
-      <width>141</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Delete Object</string>
-    </property>
-   </widget>
-   <widget class="QListWidget" name="pointsList">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>40</y>
-      <width>301</width>
-      <height>291</height>
-     </rect>
-    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QComboBox" name="objectList"/>
+     </item>
+     <item>
+      <widget class="QListWidget" name="pointsList">
+       <property name="midLineWidth">
+        <number>1</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="addObjectButton">
+       <property name="minimumSize">
+        <size>
+         <width>34</width>
+         <height>62</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Add Object To Track</string>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>170</width>
+         <height>159</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="deletePointButton">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Delete Point</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="deleteObjectButton">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Delete Object</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>324</width>
-     <height>23</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "plotwindow.h"
 #include "player.h"
+#include "pointtracker.h"
 namespace Ui {
 class MainWindow;
 }
@@ -23,6 +24,8 @@ public slots:
     void openDisplayPlot();
 private:
     Player* player;
+    pointtracker* thePointTracker;
+
     Ui::MainWindow *ui;
    // NewWindow *displayPlotWindow;
     PlotWindow displayPlotWindow;
