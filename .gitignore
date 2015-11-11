@@ -1,9 +1,12 @@
 *.o
 vidplayer/player
 vidplayer/player.app
+PointTrackingList/PointTrackingList
+PointTrackingList/PointTrackingList.app
 moc_*
 ui_*
 *.pro.user
 *.exe
 Makefile*
 .qmake.stash
+build-*

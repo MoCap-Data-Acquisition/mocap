@@ -5,7 +5,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
-#include <QSizePolicy>b
+#include <QSizePolicy>
 //#include "borderlayout.h"
 
 MainWindow::MainWindow(QWidget *parent) :

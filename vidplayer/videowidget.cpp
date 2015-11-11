@@ -11,7 +11,7 @@
 
 
 VideoWidget::VideoWidget(QWidget *parent)
-    : QVideoWidget(parent)
+    : QGraphicsView(parent)
 {
     setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
     QPalette p = palette();
@@ -19,10 +19,24 @@ VideoWidget::VideoWidget(QWidget *parent)
     setPalette(p);
 
     setAttribute(Qt::WA_OpaquePaintEvent);
+
+    scene = new QGraphicsScene(this);
+    item = new QGraphicsVideoItem();
+    this->setScene(scene);
+    scene->addItem(item);
+}
+
+void VideoWidget::setVideoPlayer(QMediaPlayer *player)
+{
+    player->setVideoOutput(item);
 }
 
 void VideoWidget::keyPressEvent(QKeyEvent *event)
 {
+    QGraphicsView::keyPressEvent(event);
+
+    // Figure out the new code for this
+    /*
     if (event->key() == Qt::Key_Escape && isFullScreen()) {
         setFullScreen(false);
         event->accept();
@@ -32,6 +46,7 @@ void VideoWidget::keyPressEvent(QKeyEvent *event)
     } else {
         QVideoWidget::keyPressEvent(event);
     }
+    */
 }
 
 void VideoWidget::mouseDoubleClickEvent(QMouseEvent *event)
@@ -50,6 +65,13 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
     point_t myPoint(0, event->x(), event->y(), time);
     qDebug() << "Point Added: (" << QString::number((int)event->x()) << ", " << QString::number((int) event->y()) << ", " << QString::number(time) << ")";
     points.push_back(myPoint);
-    QVideoWidget::mousePressEvent(event);
+    QGraphicsView::mousePressEvent(event);
     update();
+}
+
+void VideoWidget::paintEvent(QPaintEvent *event)
+{
+    QGraphicsView::paintEvent(event);
+    QPainter painter(this->viewport());
+    painter.fillRect(10, 10, 200, 200, Qt::SolidPattern);
 }
