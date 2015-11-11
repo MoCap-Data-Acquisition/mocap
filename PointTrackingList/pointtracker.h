@@ -33,8 +33,6 @@ private:
     QStringListModel *model;
     QVector< QVector<QString>> itemLists;
     void updateList();
-    int testItemCount = 0;
-    int testObjectCount = 0;
 
 };
 
