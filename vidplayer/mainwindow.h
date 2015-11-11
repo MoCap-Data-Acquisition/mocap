@@ -16,8 +16,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-//protected:
-//    void keyPressEvent(QKeyEvent *event);
+protected:
+    void keyPressEvent(QKeyEvent *event);
 
 public slots:
     void openDisplayPlot();

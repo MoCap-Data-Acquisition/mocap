@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     MainWindow::setCentralWidget(window);
 }
 
-/*void MainWindow::keyPressEvent(QKeyEvent *event)
+void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::RightArrow) {
         player->frameUp();
@@ -33,10 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
     } else if (event->key() == Qt::LeftArrow) {
         player->frameDown();
         event->accept();
-    } else {
-        MainWindow::keyPressEvent(event);
     }
-}*/
+}
 
 MainWindow::~MainWindow()
 {

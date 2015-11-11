@@ -129,12 +129,12 @@ Player::Player(QWidget *parent)
 
 void Player::frameUp()
 {
-    slider->triggerAction(QAbstractSlider::SliderSingleStepAdd);
+    player->positionChanged(500);
 }
 
 void Player::frameDown()
 {
-    slider->triggerAction(QAbstractSlider::SliderSingleStepSub);
+     player->positionChanged(500);
 }
 
 Player::~Player()
