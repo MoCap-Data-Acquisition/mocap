@@ -14,11 +14,8 @@ VideoWidget::VideoWidget(QWidget *parent)
     : QGraphicsView(parent)
 {
     setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-    QPalette p = palette();
-    p.setColor(QPalette::Window, Qt::black);
-    setPalette(p);
-
     setAttribute(Qt::WA_OpaquePaintEvent);
+    setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
 
     scene = new QGraphicsScene(this);
     item = new QGraphicsVideoItem();
@@ -34,19 +31,6 @@ void VideoWidget::setVideoPlayer(QMediaPlayer *player)
 void VideoWidget::keyPressEvent(QKeyEvent *event)
 {
     QGraphicsView::keyPressEvent(event);
-
-    // Figure out the new code for this
-    /*
-    if (event->key() == Qt::Key_Escape && isFullScreen()) {
-        setFullScreen(false);
-        event->accept();
-    } else if (event->key() == Qt::Key_Enter && event->modifiers() & Qt::Key_Alt) {
-        setFullScreen(!isFullScreen());
-        event->accept();
-    } else {
-        QVideoWidget::keyPressEvent(event);
-    }
-    */
 }
 
 void VideoWidget::mouseDoubleClickEvent(QMouseEvent *event)
@@ -65,6 +49,7 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
     point_t myPoint(0, event->x(), event->y(), time);
     qDebug() << "Point Added: (" << QString::number((int)event->x()) << ", " << QString::number((int) event->y()) << ", " << QString::number(time) << ")";
     points.push_back(myPoint);
+    drawPoint = myPoint;
     QGraphicsView::mousePressEvent(event);
     update();
 }
@@ -72,6 +57,9 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
 void VideoWidget::paintEvent(QPaintEvent *event)
 {
     QGraphicsView::paintEvent(event);
-    QPainter painter(this->viewport());
-    painter.fillRect(10, 10, 200, 200, Qt::SolidPattern);
+    if (drawPoint.ID >= 0) {
+        QPainter painter(this->viewport());
+        painter.setBrush(QBrush(drawPoint.color, Qt::SolidPattern));
+        painter.drawEllipse(drawPoint.x - 5, drawPoint.y - 5, 10, 10);
+    }
 }

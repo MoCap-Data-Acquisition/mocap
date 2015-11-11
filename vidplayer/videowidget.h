@@ -30,6 +30,7 @@ protected:
 private:
     QGraphicsScene *scene;
     QGraphicsVideoItem *item;
+    point_t drawPoint;
 };
 
 #endif // VIDEOWIDGET_H
