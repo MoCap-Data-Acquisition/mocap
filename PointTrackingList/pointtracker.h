@@ -27,14 +27,13 @@ private slots:
     void on_addObjectButton_clicked();
     void on_deletePointButton_clicked();
     void on_deleteObjectButton_clicked();
+    void on_listChanged();
 
 private:
     Ui::pointtracker *ui;
     QStringListModel *model;
     QVector< QVector<QString>> itemLists;
     void updateList();
-    int testItemCount = 0;
-    int testObjectCount = 0;
 
 };
 
