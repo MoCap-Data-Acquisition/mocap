@@ -31,7 +31,7 @@ private slots:
 private:
     Ui::pointtracker *ui;
     QStringListModel *model;
-    QVector< QList<QListWidgetItem>> itemLists;
+    QVector< QVector<QListWidgetItem>> itemLists;
     void updateList();
     int testItemCount = 0;
     int testObjectCount = 0;
