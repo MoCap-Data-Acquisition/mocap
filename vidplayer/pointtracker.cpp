@@ -1,6 +1,5 @@
 #include "pointtracker.h"
 #include "ui_pointtracker.h"
-
 #include <QDebug>
 
 pointtracker::pointtracker(QWidget *parent) :
@@ -18,13 +17,14 @@ pointtracker::~pointtracker()
 
 void pointtracker::on_addObjectButton_clicked()
 {
-    QVector<QString> points;
-    QString newPoint;
-    for (int i = 0; i < 5; ++i)
-    {
-        newPoint = QString("Test: " +  QString::number(i));
-        points.push_back(newPoint);
-    }
+    QVector<point_t> points;
+    points.push_back(point_t(itemLists.size(), 0, 0, 0));
+//    point_t newPoint;
+//    for (int i = 0; i < 5; ++i)
+//    {
+//        newPoint = QString("Test: " +  QString::number(i));
+//        points.push_back(newPoint);
+//    }
     itemLists.append(points);
     ui->objectList->addItem("Object " + QString::number(itemLists.size()));
     //Set newly made to index
@@ -61,9 +61,9 @@ void pointtracker::updateList()
     ui->pointsList->clear();
     int index = ui->objectList->currentIndex();
     if (index >= 0) {
-        for (QString &item : itemLists[index])
+        for (point_t &item : itemLists[index])
         {
-            ui->pointsList->addItem(item);
+            ui->pointsList->addItem("ID: " + QString::number(item.ID) + " x: " + QString::number(item.x));
         }
     }
 }

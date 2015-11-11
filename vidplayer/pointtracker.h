@@ -10,6 +10,7 @@
 #include <QString>
 #include <QDebug>
 #include <QList>
+#include "pointstruct.h"
 namespace Ui {
 class pointtracker;
 }
@@ -32,7 +33,7 @@ private slots:
 private:
     Ui::pointtracker *ui;
     QStringListModel *model;
-    QVector< QVector<QString>> itemLists;
+    QVector< QVector<point_t>> itemLists;
     void updateList();
 
 };
