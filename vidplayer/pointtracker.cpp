@@ -25,7 +25,7 @@ void pointtracker::on_addObjectButton_clicked()
     ui->objectList->addItem("Object " + QString::number(objectsListVec.size()));
     //Set newly made to index
     ui->objectList->setCurrentIndex(ui->objectList->count() - 1);
-    updateList();
+    repaint();
 }
 
 void pointtracker::on_deletePointButton_clicked()
@@ -33,7 +33,7 @@ void pointtracker::on_deletePointButton_clicked()
     currentObjectIndex = ui->pointsList->currentRow();
     if (currentObjectIndex >= 0) {
         objectsListVec[ui->objectList->currentIndex()].removeAt(currentObjectIndex);
-        updateList();
+        repaint();
     }
 }
 
@@ -43,16 +43,11 @@ void pointtracker::on_deleteObjectButton_clicked()
     if (currentObjectIndex >= 0) {
         ui->objectList->removeItem(currentObjectIndex);
         objectsListVec.removeAt(currentObjectIndex);
-        updateList();
+        repaint();
     }
 }
 
-void pointtracker::on_listChanged()
-{
-    updateList();
-}
-
-void pointtracker::updateList()
+void pointtracker::paintEvent(QPaintEvent *event)
 {
     ui->pointsList->clear();
     currentObjectIndex = ui->objectList->currentIndex();
@@ -65,6 +60,7 @@ void pointtracker::updateList()
             ui->pointsList->addItem("ID: " + QString::number(item.ID) + " x: " + QString::number(item.x));
         }
     }
+    QMainWindow::paintEvent(event);
 }
 QColor pointtracker::randomColorGenerator()
 {

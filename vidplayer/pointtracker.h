@@ -28,13 +28,12 @@ private slots:
     void on_addObjectButton_clicked();
     void on_deletePointButton_clicked();
     void on_deleteObjectButton_clicked();
-    void on_listChanged();
 
 private:
+    void paintEvent(QPaintEvent *event);
     Ui::pointtracker *ui;
     QStringListModel *model;
     QColor randomColorGenerator();
-    void updateList();
 
 };
 

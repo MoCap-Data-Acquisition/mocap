@@ -5,7 +5,7 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QPainter>
-#include <iostream>
+#include "mainwindow.h"
 
 
 VideoWidget::VideoWidget(QWidget *parent)
@@ -69,6 +69,7 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
     drawPoint = myPoint;
     QGraphicsView::mousePressEvent(event);
     scene->update();
+    ((MainWindow *) parent()->parent())->refreshPointTracker();
 }
 
 void VideoWidget::paintEvent(QPaintEvent *event)

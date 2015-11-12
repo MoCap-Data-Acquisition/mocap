@@ -22,6 +22,7 @@ public:
 
 public slots:
     void openDisplayPlot();
+    void refreshPointTracker();
 private:
     Player* player;
     pointtracker* thePointTracker;
