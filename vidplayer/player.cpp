@@ -75,13 +75,6 @@ Player::Player(QWidget *parent)
     connect(player, SIGNAL(volumeChanged(int)), controls, SLOT(setVolume(int)));
     connect(player, SIGNAL(mutedChanged(bool)), controls, SLOT(setMuted(bool)));
 
-    //Graphing Button
-//    plotDataButton = new QPushButton(tr("Plot Data"), this);
-  //  plotDataButton->setEnabled(true);
-   // connect(plotDataButton, SIGNAL(clicked()), this, SLOT(displayPlotWindow()));
-
-
-
     QBoxLayout *displayLayout = new QHBoxLayout;
     displayLayout->addWidget(videoWidget, 2);
     //displayLayout->addWidget(playlistView);

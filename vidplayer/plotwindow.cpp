@@ -28,8 +28,8 @@ void PlotWindow::setupSimpleDemo()
     std::unordered_map<int, QVector<double> > xs;
     std::unordered_map<int, QVector<double> > ys;
     QVector<double> time;
-    qDebug() << "points: " << points.size();
-    for (point_t& p : points) {
+    qDebug() << "points: " << objectsListVec[currentObjectIndex].size();
+    for (point_t& p : objectsListVec[currentObjectIndex]) {
         ids.emplace(p.ID);
         xs[p.ID].append(p.x);
         ys[p.ID].append(p.y);

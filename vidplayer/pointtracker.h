@@ -33,7 +33,7 @@ private slots:
 private:
     Ui::pointtracker *ui;
     QStringListModel *model;
-    QVector< QVector<point_t>> itemLists;
+    QColor randomColorGenerator();
     void updateList();
 
 };

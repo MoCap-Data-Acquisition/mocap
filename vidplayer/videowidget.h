@@ -15,9 +15,6 @@ class VideoWidget : public QGraphicsView
     Q_OBJECT
 
 public:
-    QVector<qint64>* xCoord = new QVector<qint64>;
-    QVector<qint64>* yCoord = new QVector<qint64>;
-    QVector<qint64>* tCoord = new QVector<qint64>;
     VideoWidget(QWidget *parent = 0);
     void setVideoPlayer(QMediaPlayer *player);
 
