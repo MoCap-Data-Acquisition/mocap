@@ -77,7 +77,7 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
     } else if (isCalibrated == 1) {
         QPoint p2 = event->pos();
         QPoint dist = p2 - p1;
-        double pixels = std::sqrt(QPoint::dotProduct(disp,disp));
+        double pixels = std::sqrt(QPoint::dotProduct(dist,dist));
         double metres = QInputDialog::getDouble(this, "Input the calibration distance in metres", "distance", 1.0);
         calibrationRatio = pixels/metres;
         isCalibrated = 2;
