@@ -18,9 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QPushButton *displayDataBtn = new QPushButton("display data", this);
     connect(displayDataBtn, SIGNAL(clicked()), this, SLOT(openDisplayPlot()));
 
-    QPushButton* exportCSVBtn = new QPushButton("Export CSV Data", this);
-    QPushButton* flipVideoBtn = new QPushButton("Flip Video", this);
-
     QPushButton *exportCSVBtn = new QPushButton("Export CSV Data", this);
 
     QPushButton *flipVideoBtn = new QPushButton("Flip Video", this);
