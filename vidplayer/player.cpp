@@ -151,11 +151,13 @@ Player::Player(QWidget *parent)
 
 void Player::frameUp()
 {
+    player->pause();
     player->setPosition(player->position() + 500);
 }
 
 void Player::frameDown()
 {
+    player->pause();
     player->setPosition(player->position() - 500);
 }
 
