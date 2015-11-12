@@ -77,7 +77,7 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
     drawPoint = myPoint;
     QGraphicsView::mousePressEvent(event);
     scene->update();
-    ((MainWindow *) parent()->parent())->refreshPointTracker();
+    ((MainWindow *) parent()->parent())->update();
 }
 
 void VideoWidget::paintEvent(QPaintEvent *event)
