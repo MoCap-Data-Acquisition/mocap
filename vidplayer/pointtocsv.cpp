@@ -18,7 +18,7 @@ bool writePointsToCSV(const QString &filename) {
     if (!file.open(QIODevice::WriteOnly)) return false;
     QTextStream out(&file);
     out << "\"ID\", \"x\", \"y\", \"time\"\n";
-    for(int i = 0; i < objectsListVec.size(); ++i)
+    for (int i = 0; i < objectsListVec.size(); ++i)
     {
         Q_FOREACH(point_t p, objectsListVec[i]) {
             out << p.ID << ", " << p.x << ", " << p.y << ", " << p.time << "\n";

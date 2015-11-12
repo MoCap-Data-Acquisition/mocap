@@ -71,3 +71,8 @@ void MainWindow::openDisplayPlot()
     displayPlotWindow.setupDisplayTest();
     displayPlotWindow.show();
 }
+
+void MainWindow::refreshPointTracker()
+{
+    thePointTracker->repaint();
+}

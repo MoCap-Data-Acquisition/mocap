@@ -6,8 +6,8 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QFileDialog>
-#include <iostream>
 #include "pointtocsv.h"
+#include "mainwindow.h"
 
 
 VideoWidget::VideoWidget(QWidget *parent)
@@ -16,6 +16,8 @@ VideoWidget::VideoWidget(QWidget *parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setAttribute(Qt::WA_OpaquePaintEvent);
     setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     scene = new QGraphicsScene(this);
     item = new QGraphicsVideoItem();
@@ -39,7 +41,6 @@ void VideoWidget::setRotateVideo(bool rotate)
 }
 void VideoWidget::exportCSVData()
 {
-     //QFileDialog *fileDlg = new QFileDialog ( this, "Export CSV Data", "trackingData", ".csv" );
      QString filePath = QFileDialog::getSaveFileName(this, "Export CSV Data", "trackingData.csv", ".csv");
      if(filePath.contains(".csv") == false) filePath.append(".csv");
      writePointsToCSV(filePath);
@@ -76,6 +77,7 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
     drawPoint = myPoint;
     QGraphicsView::mousePressEvent(event);
     scene->update();
+    ((MainWindow *) parent()->parent())->refreshPointTracker();
 }
 
 void VideoWidget::paintEvent(QPaintEvent *event)
