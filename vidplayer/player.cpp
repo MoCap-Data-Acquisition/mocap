@@ -74,6 +74,19 @@ Player::Player(QWidget *parent)
     connect(player, SIGNAL(volumeChanged(int)), controls, SLOT(setVolume(int)));
     connect(player, SIGNAL(mutedChanged(bool)), controls, SLOT(setMuted(bool)));
 
+
+    //Frame Buttons
+    nextFrame = new QPushButton("", this);
+    nextFrame->setEnabled(true);
+    connect(nextFrame, SIGNAL(clicked(bool)), this, SLOT(frameUp()));
+
+    prevFrame = new QPushButton("", this);
+    prevFrame->setEnabled(true);
+    connect(prevFrame, SIGNAL(clicked(bool)), this, SLOT(frameDown()));
+
+    nextFrame->setShortcut(Qt::Key_Right);
+    prevFrame->setShortcut(Qt::Key_Left);
+
     //Graphing Button
 //    plotDataButton = new QPushButton(tr("Plot Data"), this);
   //  plotDataButton->setEnabled(true);
@@ -92,6 +105,15 @@ Player::Player(QWidget *parent)
     controlLayout->addStretch(1);
     controlLayout->addWidget(controls);
     controlLayout->addStretch(1);
+    controlLayout->addWidget(nextFrame);
+    controlLayout->addWidget(prevFrame);
+    nextFrame->setFlat(true);
+    prevFrame->setFlat(true);
+    nextFrame->setFixedHeight(1);
+    nextFrame->setFixedWidth(1);
+    prevFrame->setFixedHeight(1);
+    prevFrame->setFixedWidth(1);
+
 
     //Graphing Button
   //  controlLayout->addWidget(plotDataButton);
@@ -129,12 +151,12 @@ Player::Player(QWidget *parent)
 
 void Player::frameUp()
 {
-    slider->triggerAction(QAbstractSlider::SliderSingleStepAdd);
+    player->setPosition(player->position() + 500);
 }
 
 void Player::frameDown()
 {
-    slider->triggerAction(QAbstractSlider::SliderSingleStepSub);
+    player->setPosition(player->position() - 500);
 }
 
 Player::~Player()

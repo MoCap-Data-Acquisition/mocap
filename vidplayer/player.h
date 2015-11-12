@@ -71,6 +71,8 @@ private:
     QLabel *coverLabel;
     QSlider *slider;
     QLabel *labelDuration;
+    QPushButton *nextFrame;
+    QPushButton *prevFrame;
    // QPushButton *plotDataButton;
     //QDialog *plotData;
 
