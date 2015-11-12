@@ -28,6 +28,10 @@ void VideoWidget::setVideoPlayer(QMediaPlayer *player)
     player->setVideoOutput(item);
 }
 
+void VideoWidget::setRotateVideo(bool rotate) {
+    item->setRotation(rotate ? 180 : 0);
+}
+
 void VideoWidget::keyPressEvent(QKeyEvent *event)
 {
     QGraphicsView::keyPressEvent(event);

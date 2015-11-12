@@ -21,6 +21,9 @@ public:
     VideoWidget(QWidget *parent = 0);
     void setVideoPlayer(QMediaPlayer *player);
 
+public slots:
+    void setRotateVideo(bool rotate);
+
 protected:
     void keyPressEvent(QKeyEvent *event);
     void mouseDoubleClickEvent(QMouseEvent *event);
