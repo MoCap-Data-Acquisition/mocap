@@ -7,8 +7,6 @@
 #include <QPainter>
 #include <iostream>
 
-#include "pointstruct.h"
-
 
 VideoWidget::VideoWidget(QWidget *parent)
     : QGraphicsView(parent)
@@ -48,7 +46,7 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
     auto time = ((Player*)parentWidget())->timeinMillis;
     point_t myPoint(0, event->x(), event->y(), time);
     qDebug() << "Point Added: (" << QString::number((int)event->x()) << ", " << QString::number((int) event->y()) << ", " << QString::number(time) << ")";
-    points.push_back(myPoint);
+    objectsListVec[currentObjectIndex].push_back(myPoint);
     drawPoint = myPoint;
     QGraphicsView::mousePressEvent(event);
     scene->update();

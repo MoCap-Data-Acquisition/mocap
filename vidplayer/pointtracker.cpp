@@ -8,6 +8,7 @@ pointtracker::pointtracker(QWidget *parent) :
 {
     ui->setupUi(this);
     QObject::connect(ui->objectList, SIGNAL(currentIndexChanged(int)), this, SLOT(on_listChanged()));
+    on_addObjectButton_clicked();
 }
 
 pointtracker::~pointtracker()
@@ -17,16 +18,16 @@ pointtracker::~pointtracker()
 
 void pointtracker::on_addObjectButton_clicked()
 {
-    QVector<point_t> points;
-    points.push_back(point_t(itemLists.size(), 0, 0, 0));
+    QVector<point_t> newObject;
+    //newObject.push_back(point_t(objects.size(), 0, 0, 0));
 //    point_t newPoint;
 //    for (int i = 0; i < 5; ++i)
 //    {
 //        newPoint = QString("Test: " +  QString::number(i));
 //        points.push_back(newPoint);
 //    }
-    itemLists.append(points);
-    ui->objectList->addItem("Object " + QString::number(itemLists.size()));
+    objectsListVec.push_back(newObject);
+    ui->objectList->addItem("Object " + QString::number(objectsListVec.size()));
     //Set newly made to index
     ui->objectList->setCurrentIndex(ui->objectList->count() - 1);
     updateList();
@@ -34,19 +35,19 @@ void pointtracker::on_addObjectButton_clicked()
 
 void pointtracker::on_deletePointButton_clicked()
 {
-    int index = ui->pointsList->currentRow();
-    if (index >= 0) {
-        itemLists[ui->objectList->currentIndex()].removeAt(index);
+    currentObjectIndex = ui->pointsList->currentRow();
+    if (currentObjectIndex >= 0) {
+        objectsListVec[ui->objectList->currentIndex()].removeAt(currentObjectIndex);
         updateList();
     }
 }
 
 void pointtracker::on_deleteObjectButton_clicked()
 {
-    int index = ui->objectList->currentIndex();
+    currentObjectIndex = ui->objectList->currentIndex();
     if (index >= 0) {
-        ui->objectList->removeItem(index);
-        itemLists.removeAt(index);
+        ui->objectList->removeItem(currentObjectIndex);
+        objectsListVec.removeAt(currentObjectIndex);
         updateList();
     }
 }
@@ -59,9 +60,9 @@ void pointtracker::on_listChanged()
 void pointtracker::updateList()
 {
     ui->pointsList->clear();
-    int index = ui->objectList->currentIndex();
-    if (index >= 0) {
-        for (point_t &item : itemLists[index])
+    currentObjectIndex = ui->objectList->currentIndex();
+    if (currentObjectIndex >= 0) {
+        for (point_t &item : objectsListVec[currentObjectIndex])
         {
             ui->pointsList->addItem("ID: " + QString::number(item.ID) + " x: " + QString::number(item.x));
         }
