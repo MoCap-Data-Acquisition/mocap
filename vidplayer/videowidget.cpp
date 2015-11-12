@@ -14,6 +14,8 @@ VideoWidget::VideoWidget(QWidget *parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setAttribute(Qt::WA_OpaquePaintEvent);
     setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     scene = new QGraphicsScene(this);
     item = new QGraphicsVideoItem();
