@@ -21,8 +21,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QPushButton* exportCSVBtn = new QPushButton("Export CSV Data", this);
     QPushButton* flipVideoBtn = new QPushButton("Flip Video", this);
 
-    QVBoxLayout* mainLayout = new QVBoxLayout();
-    QHBoxLayout* topRow = new QHBoxLayout();
+    QPushButton *exportCSVBtn = new QPushButton("Export CSV Data", this);
+
+    QPushButton *flipVideoBtn = new QPushButton("Flip Video", this);
+    connect(flipVideoBtn, SIGNAL(clicked(bool)), player->videoWidget, SLOT(toggleRotateVideo()));
+
+    QVBoxLayout *mainLayout = new QVBoxLayout();
+    QHBoxLayout *topRow = new QHBoxLayout();
     QHBoxLayout* layout = new QHBoxLayout();
     QVBoxLayout* east = new QVBoxLayout();
 

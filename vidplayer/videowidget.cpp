@@ -27,7 +27,15 @@ void VideoWidget::setVideoPlayer(QMediaPlayer *player)
 }
 
 void VideoWidget::setRotateVideo(bool rotate) {
+    QSizeF isize = item->size();
+    item->setTransformOriginPoint(isize.width() / 2, isize.height() / 2);
     item->setRotation(rotate ? 180 : 0);
+    videoRotated = rotate;
+    scene->update();
+}
+
+void VideoWidget::toggleRotateVideo() {
+    setRotateVideo(!videoRotated);
 }
 
 void VideoWidget::keyPressEvent(QKeyEvent *event)

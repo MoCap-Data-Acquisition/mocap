@@ -20,6 +20,7 @@ public:
 
 public slots:
     void setRotateVideo(bool rotate);
+    void toggleRotateVideo();
 
 protected:
     void keyPressEvent(QKeyEvent *event);
@@ -31,6 +32,7 @@ private:
     QGraphicsScene *scene;
     QGraphicsVideoItem *item;
     point_t drawPoint;
+    bool videoRotated;
 };
 
 #endif // VIDEOWIDGET_H
