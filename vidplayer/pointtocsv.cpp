@@ -10,16 +10,18 @@
 #include "pointstruct.h"
 
 #include <QFile>
-#include <QDataStream>
+#include <QTextStream>
 #include <QtGlobal>
 
 bool writePointsToCSV(const QString &filename) {
     QFile file(filename);
     if (!file.open(QIODevice::WriteOnly)) return false;
-    QDataStream out(&file);
+    QTextStream out(&file);
     out << "\"ID\", \"x\", \"y\", \"time\"\n";
-    Q_FOREACH(point_t p, objectsListVec[currentObjectIndex]) {
-        out << p.ID << ", " << p.x << ", " << p.y << ", " << p.time << "\n";
+    for (int i=0; i < objectsListVec.size(); ++i) {
+        Q_FOREACH(point_t p, objectsListVec[i]) {
+            out << p.ID << ", " << p.x << ", " << p.y << ", " << p.time << "\n";
+        }
     }
     file.close();
     return true;
