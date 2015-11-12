@@ -8,7 +8,7 @@
 #include <QFileDialog>
 #include "pointtocsv.h"
 #include "mainwindow.h"
-
+#include <QInputDialog>
 
 VideoWidget::VideoWidget(QWidget *parent)
     : QGraphicsView(parent)
@@ -70,14 +70,26 @@ void VideoWidget::mouseDoubleClickEvent(QMouseEvent *event)
 
 void VideoWidget::mousePressEvent(QMouseEvent *event)
 {
-    auto time = ((Player*)parentWidget())->timeinMillis;
-    point_t myPoint(currentObjectIndex, event->x(), event->y(), time, currentColor);
-    qDebug() << "Point Added: (" << QString::number((int)event->x()) << ", " << QString::number((int) event->y()) << ", " << QString::number(time) << ")";
-    objectsListVec[currentObjectIndex].push_back(myPoint);
-    drawPoint = myPoint;
-    QGraphicsView::mousePressEvent(event);
-    scene->update();
-    ((MainWindow *) parent()->parent())->update();
+    if (isCalibrated == 0) {
+        p1 = event->pos();
+        isCalibrated = 1;
+        QGraphicsView::mousePressEvent(event);
+    } else if (isCalibrated == 1) {
+        QPoint p2 = event->pos();
+        double pixels = std::sqrt(QPoint::dotProduct(p1,p2));
+        double metres = QInputDialog::getDouble(this, "Input the calibration distance in metres", "distance", 1.0);
+        calibrationRatio = pixels/metres;
+        isCalibrated = 2;
+    } else {
+        auto time = ((Player*)parentWidget())->timeinMillis;
+        point_t myPoint(currentObjectIndex, (event->x())/calibrationRatio, (event->y())/calibrationRatio, time, currentColor);
+        qDebug() << "Point Added: (" << QString::number((int)event->x()) << ", " << QString::number((int) event->y()) << ", " << QString::number(time) << ")";
+        objectsListVec[currentObjectIndex].push_back(myPoint);
+        drawPoint = myPoint;
+        QGraphicsView::mousePressEvent(event);
+        scene->update();
+        ((MainWindow *) parent()->parent())->update();
+    }
 }
 
 void VideoWidget::paintEvent(QPaintEvent *event)

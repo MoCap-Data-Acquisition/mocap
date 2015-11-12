@@ -8,6 +8,7 @@
 #include <QVector>
 #include <QtGui>
 #include <QDebug>
+#include <cmath>
 #include "pointstruct.h"
 
 class VideoWidget : public QGraphicsView
@@ -35,6 +36,9 @@ private:
     QGraphicsVideoItem *item;
     point_t drawPoint;
     bool videoRotated;
+    double calibrationRatio = -1.0;
+    int isCalibrated = 0;
+    QPoint p1;
 };
 
 #endif // VIDEOWIDGET_H

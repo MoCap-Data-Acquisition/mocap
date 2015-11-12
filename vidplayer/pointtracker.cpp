@@ -2,6 +2,7 @@
 #include "ui_pointtracker.h"
 #include <random>
 
+
 pointtracker::pointtracker(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::pointtracker)
@@ -57,7 +58,7 @@ void pointtracker::paintEvent(QPaintEvent *event)
     if (currentObjectIndex >= 0) {
         for (point_t &item : objectsListVec[currentObjectIndex])
         {
-            ui->pointsList->addItem("ID: " + QString::number(item.ID) + " x: " + QString::number(item.x));
+            ui->pointsList->addItem("x: " + QString::number(item.x, 'f', 2) + " y: " + QString::number(item.y, 'f', 2) + " t: " + QString::number(item.time) + " ms");
         }
     }
     QMainWindow::paintEvent(event);
