@@ -8,8 +8,8 @@ int main(int argc, char *argv[])
     MainWindow w;
 //    w.setWindowFlags(Qt::CustomizeWindowHint
 //                     | Qt::WindowCloseButtonHint);
-//    w.showMaximized();
-    w.show();
+    w.showMaximized();
+//    w.show();
     //Player player;
 
 //#if defined(Q_WS_SIMULATOR)

@@ -35,6 +35,7 @@ Player::Player(QWidget *parent)
 
     videoWidget = new VideoWidget(this);
     videoWidget->setVideoPlayer(player);
+    videoWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     playlistModel = new PlaylistModel(this);
     playlistModel->setPlaylist(playlist);

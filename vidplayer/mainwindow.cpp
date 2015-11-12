@@ -18,14 +18,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QPushButton *displayDataBtn = new QPushButton("display data", this);
     connect(displayDataBtn, SIGNAL(clicked()), this, SLOT(openDisplayPlot()));
 
+    QPushButton* exportCSVBtn = new QPushButton("Export CSV Data", this);
+    QPushButton* flipVideoBtn = new QPushButton("Flip Video", this);
 
-    QPushButton *exportCSVBtn = new QPushButton("Export CSV Data", this);
-
-    QPushButton *flipVideoBtn = new QPushButton("Flip Video", this);
-
-
-    QVBoxLayout *mainLayout = new QVBoxLayout();
-    QHBoxLayout *topRow = new QHBoxLayout();
+    QVBoxLayout* mainLayout = new QVBoxLayout();
+    QHBoxLayout* topRow = new QHBoxLayout();
     QHBoxLayout* layout = new QHBoxLayout();
     QVBoxLayout* east = new QVBoxLayout();
 
@@ -33,12 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
     topRow->addWidget(exportCSVBtn);
     topRow->addWidget(flipVideoBtn);
 
-
-    player->setMinimumWidth((int) this->width()*3/4);
-    thePointTracker->setMinimumWidth((int) this->width()*1/4);
-    layout->addWidget(player);
-//    player->setSizePolicy();
-   // layout->addWidget(displayDataBtn);
+//    player->setMinimumWidth((int) this->width()*3/4);
+    thePointTracker->setMinimumWidth((int) this->width()*.41);
+    layout->addWidget(player,3);
 
     east->addWidget(thePointTracker);
 
@@ -46,10 +40,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mainLayout->addLayout(topRow, 3);
     mainLayout->addLayout(layout);
-//    layout->addWidget(createLabel("South"), BorderLayout::South);
-//    layout->addWidget(createLabel("East 2"), BorderLayout::East);
 
-    QWidget *window = new QWidget();
+    QWidget* window = new QWidget();
     window->setLayout(mainLayout);
     MainWindow::setCentralWidget(window);
 }

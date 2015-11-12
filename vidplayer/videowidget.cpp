@@ -13,7 +13,7 @@
 VideoWidget::VideoWidget(QWidget *parent)
     : QGraphicsView(parent)
 {
-    setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setAttribute(Qt::WA_OpaquePaintEvent);
     setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
 

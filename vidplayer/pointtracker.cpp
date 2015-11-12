@@ -8,6 +8,8 @@ pointtracker::pointtracker(QWidget *parent) :
 {
     ui->setupUi(this);
     QObject::connect(ui->objectList, SIGNAL(currentIndexChanged(int)), this, SLOT(on_listChanged()));
+    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+
 }
 
 pointtracker::~pointtracker()
@@ -19,12 +21,6 @@ void pointtracker::on_addObjectButton_clicked()
 {
     QVector<point_t> points;
     points.push_back(point_t(itemLists.size(), 0, 0, 0));
-//    point_t newPoint;
-//    for (int i = 0; i < 5; ++i)
-//    {
-//        newPoint = QString("Test: " +  QString::number(i));
-//        points.push_back(newPoint);
-//    }
     itemLists.append(points);
     ui->objectList->addItem("Object " + QString::number(itemLists.size()));
     //Set newly made to index
