@@ -14,12 +14,12 @@ struct point_t
    QColor color;
 
    point_t();
-   point_t(const int myID, const double myX, const double myY, const int t, const QColor c = Qt::blue);
+   point_t(const int myID, const double myX, const double myY, const int t, const QColor c);
 };
 
 //extern QVector<point_t> points;
 extern QVector< QVector<point_t>> objectsListVec;
-
+extern QColor currentColor;
 QVector<point_t> filterID(int id);
 extern int currentObjectIndex; //current object
 

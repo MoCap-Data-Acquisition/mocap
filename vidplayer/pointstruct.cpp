@@ -16,6 +16,7 @@ point_t::point_t(const int myID, const double myX, const double myY, const int t
 }
 
 int currentObjectIndex = 0;
+QColor currentColor = Qt::blue;
 //QVector<point_t> points;
 QVector< QVector<point_t> > objectsListVec;
 QVector<point_t> filterID(int id) {

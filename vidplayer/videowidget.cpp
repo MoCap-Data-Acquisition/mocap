@@ -39,12 +39,8 @@ void VideoWidget::mouseDoubleClickEvent(QMouseEvent *event)
 
 void VideoWidget::mousePressEvent(QMouseEvent *event)
 {
-    //xCoord->append(event->x());
-    //customPlot->graph(1)->setPen(QPen(Qt::red)); // line color red for second graph
-    // generate some points of data (y0 for firsyCoord->append(event->y());
-   // tCoord->append(((Player*)parentWidget())->timeinMillis);
     auto time = ((Player*)parentWidget())->timeinMillis;
-    point_t myPoint(0, event->x(), event->y(), time);
+    point_t myPoint(currentObjectIndex, event->x(), event->y(), time, currentColor);
     qDebug() << "Point Added: (" << QString::number((int)event->x()) << ", " << QString::number((int) event->y()) << ", " << QString::number(time) << ")";
     objectsListVec[currentObjectIndex].push_back(myPoint);
     drawPoint = myPoint;
