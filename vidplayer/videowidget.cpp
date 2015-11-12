@@ -5,7 +5,9 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QFileDialog>
 #include <iostream>
+#include "pointtocsv.h"
 
 
 VideoWidget::VideoWidget(QWidget *parent)
@@ -34,6 +36,13 @@ void VideoWidget::setRotateVideo(bool rotate)
     item->setRotation(rotate ? 180 : 0);
     videoRotated = rotate;
     scene->update();
+}
+void VideoWidget::exportCSVData()
+{
+     //QFileDialog *fileDlg = new QFileDialog ( this, "Export CSV Data", "trackingData", ".csv" );
+     QString filePath = QFileDialog::getSaveFileName(this, "Export CSV Data", "trackingData.csv", ".csv");
+     if(filePath.contains(".csv") == false) filePath.append(".csv");
+     writePointsToCSV(filePath);
 }
 
 void VideoWidget::toggleRotateVideo()

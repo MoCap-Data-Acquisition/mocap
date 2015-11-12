@@ -20,6 +20,7 @@ public:
 
 public slots:
     void setRotateVideo(bool rotate);
+    void exportCSVData();
     void toggleRotateVideo();
 
 protected:

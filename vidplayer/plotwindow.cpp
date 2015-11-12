@@ -16,7 +16,7 @@ PlotWindow::PlotWindow(QWidget *parent) :
 void PlotWindow::setupDisplayTest()
 {
     setupSimpleDemo();
-    setWindowTitle("Custom Plot Test");
+    setWindowTitle("Custom Plot Test - Object: " + QString::number(currentObjectIndex + 1));
     statusBar()->clearMessage();
     ui->customPlotX->replot();
     ui->customPlotY->replot();
@@ -34,7 +34,7 @@ void PlotWindow::setupSimpleDemo()
         xs[p.ID].append(p.x);
         ys[p.ID].append(p.y);
         time.append(p.time);
-        qDebug() << "yo";
+        //qDebug() << "yo";
     }
     for (int id : ids) {
         ui->customPlotX->addGraph();

@@ -40,7 +40,7 @@ void pointtracker::on_deletePointButton_clicked()
 void pointtracker::on_deleteObjectButton_clicked()
 {
     currentObjectIndex = ui->objectList->currentIndex();
-    if (currentObjectIndex >= 0) {
+    if (currentObjectIndex >= 0 && objectsListVec.size() > 1) {
         ui->objectList->removeItem(currentObjectIndex);
         objectsListVec.removeAt(currentObjectIndex);
         updateList();

@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(displayDataBtn, SIGNAL(clicked()), this, SLOT(openDisplayPlot()));
 
     QPushButton *exportCSVBtn = new QPushButton("Export CSV Data", this);
-
+    connect(exportCSVBtn, SIGNAL(clicked()), player->videoWidget, SLOT(exportCSVData()));
     QPushButton *flipVideoBtn = new QPushButton("Flip Video", this);
     connect(flipVideoBtn, SIGNAL(clicked(bool)), player->videoWidget, SLOT(toggleRotateVideo()));
 
