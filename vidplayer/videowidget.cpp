@@ -51,7 +51,7 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
     points.push_back(myPoint);
     drawPoint = myPoint;
     QGraphicsView::mousePressEvent(event);
-    update();
+    scene->update();
 }
 
 void VideoWidget::paintEvent(QPaintEvent *event)

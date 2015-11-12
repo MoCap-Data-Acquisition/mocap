@@ -14,7 +14,7 @@ struct point_t
    QColor color;
 
    point_t();
-   point_t(const int myID, const double myX, const double myY, const int t, const QColor c = QColor(0,0,0));
+   point_t(const int myID, const double myX, const double myY, const int t, const QColor c = Qt::blue);
 };
 
 extern QVector<point_t> points;
