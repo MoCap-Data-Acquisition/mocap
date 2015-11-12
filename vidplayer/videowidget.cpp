@@ -17,6 +17,7 @@ VideoWidget::VideoWidget(QWidget *parent)
 
     scene = new QGraphicsScene(this);
     item = new QGraphicsVideoItem();
+    item->setSize(size());
     this->setScene(scene);
     scene->addItem(item);
 }
@@ -26,7 +27,8 @@ void VideoWidget::setVideoPlayer(QMediaPlayer *player)
     player->setVideoOutput(item);
 }
 
-void VideoWidget::setRotateVideo(bool rotate) {
+void VideoWidget::setRotateVideo(bool rotate)
+{
     QSizeF isize = item->size();
     item->setTransformOriginPoint(isize.width() / 2, isize.height() / 2);
     item->setRotation(rotate ? 180 : 0);
@@ -34,8 +36,15 @@ void VideoWidget::setRotateVideo(bool rotate) {
     scene->update();
 }
 
-void VideoWidget::toggleRotateVideo() {
+void VideoWidget::toggleRotateVideo()
+{
     setRotateVideo(!videoRotated);
+}
+
+void VideoWidget::resizeEvent(QResizeEvent *event)
+{
+    QGraphicsView::resizeEvent(event);
+    item->setSize(size());
 }
 
 void VideoWidget::keyPressEvent(QKeyEvent *event)

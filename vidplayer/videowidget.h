@@ -23,6 +23,7 @@ public slots:
     void toggleRotateVideo();
 
 protected:
+    void resizeEvent(QResizeEvent *event);
     void keyPressEvent(QKeyEvent *event);
     void mouseDoubleClickEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent *event);
