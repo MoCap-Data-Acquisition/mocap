@@ -8,8 +8,10 @@ pointtracker::pointtracker(QWidget *parent) :
 {
     ui->setupUi(this);
     QObject::connect(ui->objectList, SIGNAL(currentIndexChanged(int)), this, SLOT(on_listChanged()));
+    connect(ui->pointsList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(on_pointsList_itemClicked(QListWidgetItem*)));
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     on_addObjectButton_clicked();
+    lastSelected = -1;
 }
 
 pointtracker::~pointtracker()
@@ -30,11 +32,13 @@ void pointtracker::on_addObjectButton_clicked()
 
 void pointtracker::on_deletePointButton_clicked()
 {
-    currentObjectIndex = ui->pointsList->currentRow();
-    if (currentObjectIndex >= 0) {
-        objectsListVec[ui->objectList->currentIndex()].removeAt(currentObjectIndex);
+    //currentObjectIndex = ui->pointsList->currentRow();
+    if (lastSelected >= 0) {
+        objectsListVec[ui->objectList->currentIndex()].removeAt(lastSelected);
         repaint();
     }
+    if(lastSelected >= objectsListVec[currentObjectIndex].size()) lastSelected = -1;
+    repaint();
 }
 
 void pointtracker::on_deleteObjectButton_clicked()
@@ -46,9 +50,16 @@ void pointtracker::on_deleteObjectButton_clicked()
         repaint();
     }
 }
-
+void pointtracker::on_listChanged()
+{
+    repaint();
+}
 void pointtracker::paintEvent(QPaintEvent *event)
 {
+    if(event->HoverEnter)
+    {
+        event->ignore();
+    }
     ui->pointsList->clear();
     currentObjectIndex = ui->objectList->currentIndex();
     if (objectsListVec[currentObjectIndex].length() > 0)
@@ -57,7 +68,7 @@ void pointtracker::paintEvent(QPaintEvent *event)
     if (currentObjectIndex >= 0) {
         for (point_t &item : objectsListVec[currentObjectIndex])
         {
-            ui->pointsList->addItem("ID: " + QString::number(item.ID) + " x: " + QString::number(item.x));
+           ui->pointsList->addItem("x: " + QString::number(item.x, 'f', 2) + " y: " + QString::number(item.y, 'f', 2) + " t: " + QString::number(item.time) + " ms");
         }
     }
     QMainWindow::paintEvent(event);
@@ -67,4 +78,11 @@ QColor pointtracker::randomColorGenerator()
     std::default_random_engine rd((std::random_device())());
     std::uniform_int_distribution<int> gen(0,255);
     return QColor(gen(rd), gen(rd), gen(rd));
+}
+
+void pointtracker::on_pointsList_itemClicked(QListWidgetItem *item)
+{
+
+    lastSelected = ui->pointsList->currentRow();
+    qDebug() << "Last item selected: " << QString::number(lastSelected);
 }

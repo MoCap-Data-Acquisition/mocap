@@ -75,8 +75,14 @@
            <height>50</height>
           </size>
          </property>
+         <property name="statusTip">
+          <string/>
+         </property>
          <property name="text">
           <string>Delete Point</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
          </property>
         </widget>
        </item>

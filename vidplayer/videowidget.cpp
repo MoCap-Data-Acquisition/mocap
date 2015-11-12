@@ -74,18 +74,21 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
     point_t myPoint(currentObjectIndex, event->x(), event->y(), time, currentColor);
     qDebug() << "Point Added: (" << QString::number((int)event->x()) << ", " << QString::number((int) event->y()) << ", " << QString::number(time) << ")";
     objectsListVec[currentObjectIndex].push_back(myPoint);
-    drawPoint = myPoint;
+    //drawPoint = myPoint;
     QGraphicsView::mousePressEvent(event);
     scene->update();
-    ((MainWindow *) parent()->parent())->refreshPointTracker();
+    ((MainWindow *) parent()->parent())->update();
 }
 
 void VideoWidget::paintEvent(QPaintEvent *event)
 {
     QGraphicsView::paintEvent(event);
-    if (drawPoint.ID >= 0) {
-        QPainter painter(this->viewport());
-        painter.setBrush(QBrush(drawPoint.color, Qt::SolidPattern));
-        painter.drawEllipse(drawPoint.x - 5, drawPoint.y - 5, 10, 10);
-    }
+    //if (drawPoint.ID >= 0) {
+    QPainter painter(this->viewport());
+        for(int i = 0; i < objectsListVec.size(); ++i) {
+            for(int j = 0; j < objectsListVec[i].size(); ++j){
+                painter.setBrush(QBrush(objectsListVec[i][j].color, Qt::SolidPattern));
+                painter.drawEllipse(objectsListVec[i][j].x - 5, objectsListVec[i][j].y - 5, 7, 7);
+            }
+        }
 }
