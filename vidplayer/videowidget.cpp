@@ -95,9 +95,12 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
 void VideoWidget::paintEvent(QPaintEvent *event)
 {
     QGraphicsView::paintEvent(event);
-    if (drawPoint.ID >= 0) {
-        QPainter painter(this->viewport());
-        painter.setBrush(QBrush(drawPoint.color, Qt::SolidPattern));
-        painter.drawEllipse(drawPoint.x - 5, drawPoint.y - 5, 10, 10);
-    }
+    //if (drawPoint.ID >= 0) {
+    QPainter painter(this->viewport());
+        for(int i = 0; i < objectsListVec.size(); ++i) {
+            for(int j = 0; j < objectsListVec[i].size(); ++j){
+                painter.setBrush(QBrush(objectsListVec[i][j].color, Qt::SolidPattern));
+                painter.drawEllipse(objectsListVec[i][j].x - 5, objectsListVec[i][j].y - 5, 7, 7);
+            }
+        }
 }
