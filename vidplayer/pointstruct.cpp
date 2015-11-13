@@ -19,6 +19,8 @@ int currentObjectIndex = 0;
 QColor currentColor = Qt::blue;
 //QVector<point_t> points;
 QVector< QVector<point_t> > objectsListVec;
+bool objectsListDirty = true;
+
 QVector<point_t> filterID(int id) {
     QVector<point_t> po;
     Q_FOREACH(point_t p, objectsListVec[currentObjectIndex]) {

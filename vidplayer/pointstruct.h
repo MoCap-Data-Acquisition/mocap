@@ -19,6 +19,7 @@ struct point_t
 
 //extern QVector<point_t> points;
 extern QVector< QVector<point_t>> objectsListVec;
+extern bool objectsListDirty;
 extern QColor currentColor;
 QVector<point_t> filterID(int id);
 extern int currentObjectIndex; //current object

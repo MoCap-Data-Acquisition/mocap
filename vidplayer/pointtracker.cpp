@@ -24,6 +24,7 @@ void pointtracker::on_addObjectButton_clicked()
 {
     QVector<point_t> newObject;
     objectsListVec.push_back(newObject);
+    objectsListDirty = true;
     currentColor = randomColorGenerator();
     ui->objectList->addItem("Object " + QString::number(objectsListVec.size()));
     //Set newly made to index
@@ -36,10 +37,14 @@ void pointtracker::on_deletePointButton_clicked()
     //currentObjectIndex = ui->pointsList->currentRow();
     if (lastSelected >= 0) {
         objectsListVec[ui->objectList->currentIndex()].removeAt(lastSelected);
+        objectsListDirty = true;
         repaint();
     }
-    if(lastSelected >= objectsListVec[currentObjectIndex].size()) lastSelected = -1;
-    repaint();
+    if(lastSelected >= objectsListVec[currentObjectIndex].size()) {
+        lastSelected = -1;
+        objectsListDirty = true;
+        repaint();
+    }
 }
 
 void pointtracker::on_deleteObjectButton_clicked()
@@ -48,29 +53,30 @@ void pointtracker::on_deleteObjectButton_clicked()
     if (currentObjectIndex >= 0 && objectsListVec.size() > 1) {
         ui->objectList->removeItem(currentObjectIndex);
         objectsListVec.removeAt(currentObjectIndex);
+        objectsListDirty = true;
         repaint();
     }
 }
 void pointtracker::on_listChanged()
 {
+    objectsListDirty = true;
     repaint();
 }
 void pointtracker::paintEvent(QPaintEvent *event)
 {
-    if(event->HoverEnter)
-    {
-        event->ignore();
-    }
-    ui->pointsList->clear();
-    currentObjectIndex = ui->objectList->currentIndex();
-    if (objectsListVec[currentObjectIndex].length() > 0)
-        currentColor = objectsListVec[currentObjectIndex][0].color;
+    if (objectsListDirty) {
+        ui->pointsList->clear();
+        currentObjectIndex = ui->objectList->currentIndex();
+        if (objectsListVec[currentObjectIndex].length() > 0)
+            currentColor = objectsListVec[currentObjectIndex][0].color;
 
-    if (currentObjectIndex >= 0) {
-        for (point_t &item : objectsListVec[currentObjectIndex])
-        {
-            ui->pointsList->addItem("x: " + QString::number(item.x, 'f', 2) + " y: " + QString::number(item.y, 'f', 2) + " t: " + QString::number(item.time) + " ms");
+        if (currentObjectIndex >= 0) {
+            for (point_t &item : objectsListVec[currentObjectIndex])
+            {
+                ui->pointsList->addItem("x: " + QString::number(item.x, 'f', 2) + " y: " + QString::number(item.y, 'f', 2) + " t: " + QString::number(item.time) + " ms");
+            }
         }
+        objectsListDirty = false;
     }
     QMainWindow::paintEvent(event);
 }

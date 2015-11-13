@@ -86,6 +86,7 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
         point_t myPoint(currentObjectIndex, (event->x())/calibrationRatio, (event->y())/calibrationRatio, time, currentColor);
         qDebug() << "Point Added: (" << QString::number((int)event->x()) << ", " << QString::number((int) event->y()) << ", " << QString::number(time) << ")";
         objectsListVec[currentObjectIndex].push_back(myPoint);
+        objectsListDirty = true;
         drawPoint = myPoint;
         QGraphicsView::mousePressEvent(event);
         scene->update();
