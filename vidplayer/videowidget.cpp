@@ -101,7 +101,7 @@ void VideoWidget::paintEvent(QPaintEvent *event)
         for(int i = 0; i < objectsListVec.size(); ++i) {
             for(int j = 0; j < objectsListVec[i].size(); ++j){
                 painter.setBrush(QBrush(objectsListVec[i][j].color, Qt::SolidPattern));
-                painter.drawEllipse(objectsListVec[i][j].x - 5, objectsListVec[i][j].y - 5, 7, 7);
+                painter.drawEllipse((objectsListVec[i][j].x * calibrationRatio) - 5, (objectsListVec[i][j].y * calibrationRatio) - 5, 10, 10);
             }
         }
 }
