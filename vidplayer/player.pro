@@ -18,7 +18,6 @@ QT += network \
 HEADERS = \
     player.h \
     playercontrols.h \
-    playlistmodel.h \
     videowidget.h \
     qcustomplot.h \
     mainwindow.h \
@@ -30,7 +29,6 @@ HEADERS = \
 SOURCES = main.cpp \
     player.cpp \
     playercontrols.cpp \
-    playlistmodel.cpp \
     videowidget.cpp \
     qcustomplot.cpp \
     mainwindow.cpp \
@@ -42,6 +40,18 @@ SOURCES = main.cpp \
 
 maemo* {
     DEFINES += PLAYER_NO_COLOROPTIONS
+}
+
+unix:!macx {
+    LIBS       += -lVLCQtCore -lVLCQtWidgets
+}
+
+macx {
+    QMAKE_CXXFLAGS += -F/Library/Frameworks
+    QMAKE_LFLAGS += -F/Library/Frameworks
+    LIBS += -framework VLCQtCore -framework VLCQtWidgets
+
+    QMAKE_RPATHDIR += /usr/local/lib
 }
 
 target.path = $$[QT_INSTALL_EXAMPLES]/multimediawidgets/player

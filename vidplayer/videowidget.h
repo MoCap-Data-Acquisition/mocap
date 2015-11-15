@@ -3,7 +3,7 @@
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
-#include <QGraphicsVideoItem>
+#include <QGraphicsProxyWidget>
 #include <QMediaPlayer>
 #include <QVector>
 #include <QtGui>
@@ -11,13 +11,15 @@
 #include <cmath>
 #include "pointstruct.h"
 
+#include <VLCQtCore/MediaPlayer.h>
+#include <VLCQtWidgets/WidgetVideo.h>
+
 class VideoWidget : public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    VideoWidget(QWidget *parent = 0);
-    void setVideoPlayer(QMediaPlayer *player);
+    VideoWidget(VlcMediaPlayer *player, QWidget *parent = 0);
 
 public slots:
     void setRotateVideo(bool rotate);
@@ -33,7 +35,8 @@ protected:
 
 private:
     QGraphicsScene *scene;
-    QGraphicsVideoItem *item;
+    QGraphicsProxyWidget *proxy;
+    VlcWidgetVideo *video;
     point_t drawPoint;
     bool videoRotated;
     double calibrationRatio = -1.0;

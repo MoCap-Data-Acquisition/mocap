@@ -10,7 +10,7 @@
 #include "mainwindow.h"
 #include <QInputDialog>
 
-VideoWidget::VideoWidget(QWidget *parent)
+VideoWidget::VideoWidget(VlcMediaPlayer *player, QWidget *parent)
     : QGraphicsView(parent)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -20,24 +20,21 @@ VideoWidget::VideoWidget(QWidget *parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     scene = new QGraphicsScene(this);
-    item = new QGraphicsVideoItem();
-    item->setSize(size());
+    video = new VlcWidgetVideo(player, this);
+    //item->setSize(size());
     this->setScene(scene);
-    scene->addItem(item);
-}
-
-void VideoWidget::setVideoPlayer(QMediaPlayer *player)
-{
-    player->setVideoOutput(item);
+    proxy = scene->addWidget(video);
 }
 
 void VideoWidget::setRotateVideo(bool rotate)
 {
+    /*
     QSizeF isize = item->size();
     item->setTransformOriginPoint(isize.width() / 2, isize.height() / 2);
     item->setRotation(rotate ? 180 : 0);
     videoRotated = rotate;
     scene->update();
+    */
 }
 void VideoWidget::exportCSVData()
 {
@@ -54,7 +51,7 @@ void VideoWidget::toggleRotateVideo()
 void VideoWidget::resizeEvent(QResizeEvent *event)
 {
     QGraphicsView::resizeEvent(event);
-    item->setSize(size());
+    //item->setSize(size());
 }
 
 void VideoWidget::keyPressEvent(QKeyEvent *event)

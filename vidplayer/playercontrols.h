@@ -4,6 +4,8 @@
 #include <QMediaPlayer>
 #include <QWidget>
 
+#include <VLCQtCore/Enums.h>
+
 class QAbstractButton;
 class QAbstractSlider;
 class QComboBox;
@@ -14,10 +16,10 @@ class PlayerControls : public QWidget
 
 public:
     PlayerControls(QWidget *parent = 0);
-    QMediaPlayer::State state() const;
+    Vlc::State state() const;
 
 public slots:
-    void setState(QMediaPlayer::State state);
+    void setState(Vlc::State state);
     void playClicked();
 signals:
     void play();
@@ -25,7 +27,7 @@ signals:
     void stop();
 
 private:
-    QMediaPlayer::State playerState;
+    Vlc::State playerState;
     bool playerMuted;
     QAbstractButton *playButton;
     QAbstractButton *stopButton;

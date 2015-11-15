@@ -4,10 +4,10 @@
 #include "videowidget.h"
 
 #include <QWidget>
-#include <QMediaPlayer>
-#include <QMediaPlaylist>
 #include <QVideoFrame>
-//#include "displayplot.h"
+
+#include <VLCQtCore/Instance.h>
+#include <VLCQtCore/MediaPlayer.h>
 
 class QAbstractItemView;
 class QLabel;
@@ -42,13 +42,11 @@ private slots:
     void open();
     void durationChanged(qint64 duration);
     void positionChanged(qint64 progress);
-    void metaDataChanged();
 
     void previousClicked();
 
     void seek(int seconds);
     void jump(const QModelIndex &index);
-    void playlistPositionChanged(int);
 
     void statusChanged(QMediaPlayer::MediaStatus status);
     void bufferingProgress(int progress);
@@ -57,16 +55,12 @@ private slots:
     void displayErrorMessage();
   //  void displayPlotWindow();
 
-    void addToPlaylist(const QStringList &fileNames);
-
 private:
     void setTrackInfo(const QString &info);
     void setStatusInfo(const QString &info);
     void handleCursor(QMediaPlayer::MediaStatus status);
     void updateDurationInfo(qint64 currentInfo);
 
-    QMediaPlayer *player;
-    QMediaPlaylist *playlist;
 //    VideoWidget *videoWidget; making this public....
     QLabel *coverLabel;
     QSlider *slider;
@@ -78,9 +72,9 @@ private:
 
     //NewWindow *newPlotWindow;
 
+    VlcInstance *vlc;
+    VlcMediaPlayer *player;
 
-    PlaylistModel *playlistModel;
-    QAbstractItemView *playlistView;
     QString trackInfo;
     QString statusInfo;
     qint64 duration;

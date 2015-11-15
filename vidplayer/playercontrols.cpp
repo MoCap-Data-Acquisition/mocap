@@ -9,7 +9,7 @@
 
 PlayerControls::PlayerControls(QWidget *parent)
     : QWidget(parent)
-    , playerState(QMediaPlayer::StoppedState)
+    , playerState(Vlc::State::Stopped)
     , playerMuted(false)
     , playButton(0)
     , stopButton(0)
@@ -34,26 +34,26 @@ PlayerControls::PlayerControls(QWidget *parent)
     setLayout(layout);
 }
 
-QMediaPlayer::State PlayerControls::state() const
+Vlc::State PlayerControls::state() const
 {
     return playerState;
 }
 
-void PlayerControls::setState(QMediaPlayer::State state)
+void PlayerControls::setState(Vlc::State state)
 {
     if (state != playerState) {
         playerState = state;
 
         switch (state) {
-        case QMediaPlayer::StoppedState:
+        case Vlc::Stopped:
             stopButton->setEnabled(false);
             playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
             break;
-        case QMediaPlayer::PlayingState:
+        case Vlc::Playing:
             stopButton->setEnabled(true);
             playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
             break;
-        case QMediaPlayer::PausedState:
+        case Vlc::Paused:
             stopButton->setEnabled(true);
             playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
             break;
@@ -64,11 +64,11 @@ void PlayerControls::setState(QMediaPlayer::State state)
 void PlayerControls::playClicked()
 {
     switch (playerState) {
-    case QMediaPlayer::StoppedState:
-    case QMediaPlayer::PausedState:
+    case Vlc::State::Stopped:
+    case Vlc::State::Paused:
         emit play();
         break;
-    case QMediaPlayer::PlayingState:
+    case Vlc::State::Playing:
         emit pause();
         break;
     }

@@ -1,7 +1,6 @@
 #include "player.h"
 
 #include "playercontrols.h"
-#include "playlistmodel.h"
 
 
 #include <QMediaService>
@@ -11,6 +10,8 @@
 #include <QtWidgets>
 #include <QShortcut>
 
+#include <VLCQtCore/Common.h>
+
 Player::Player(QWidget *parent)
     : QWidget(parent)
     , videoWidget(0)
@@ -18,36 +19,23 @@ Player::Player(QWidget *parent)
     , slider(0)
 
 {
-    player = new QMediaPlayer(this);
-    // owned by PlaylistModel
-    playlist = new QMediaPlaylist();
-    player->setPlaylist(playlist);
+    vlc = new VlcInstance(VlcCommon::args(), this);
+    player = new VlcMediaPlayer(vlc);
 
     connect(player, SIGNAL(durationChanged(qint64)), SLOT(durationChanged(qint64)));
     connect(player, SIGNAL(positionChanged(qint64)), SLOT(positionChanged(qint64)));
     connect(player, SIGNAL(metaDataChanged()), SLOT(metaDataChanged()));
-    connect(playlist, SIGNAL(currentIndexChanged(int)), SLOT(playlistPositionChanged(int)));
     connect(player, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
             this, SLOT(statusChanged(QMediaPlayer::MediaStatus)));
     connect(player, SIGNAL(bufferStatusChanged(int)), this, SLOT(bufferingProgress(int)));
     connect(player, SIGNAL(videoAvailableChanged(bool)), this, SLOT(videoAvailableChanged(bool)));
     connect(player, SIGNAL(error(QMediaPlayer::Error)), this, SLOT(displayErrorMessage()));
 
-    videoWidget = new VideoWidget(this);
-    videoWidget->setVideoPlayer(player);
+    videoWidget = new VideoWidget(player, this);
     videoWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    playlistModel = new PlaylistModel(this);
-    playlistModel->setPlaylist(playlist);
-
-    playlistView = new QListView(this);
-    playlistView->setModel(playlistModel);
-    playlistView->setCurrentIndex(playlistModel->index(playlist->currentIndex(), 0));
-
-    connect(playlistView, SIGNAL(activated(QModelIndex)), this, SLOT(jump(QModelIndex)));
-
     slider = new QSlider(Qt::Horizontal, this);
-    slider->setRange(0, (player->duration() / 1000));
+    slider->setRange(0, (player->length() / 1000));
 
     labelDuration = new QLabel(this);
     connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(seek(int)));
@@ -62,7 +50,6 @@ Player::Player(QWidget *parent)
     connect(controls, SIGNAL(play()), player, SLOT(play()));
     connect(controls, SIGNAL(pause()), player, SLOT(pause()));
     connect(controls, SIGNAL(stop()), player, SLOT(stop()));
-    connect(controls, SIGNAL(next()), playlist, SLOT(next()));
     connect(controls, SIGNAL(previous()), this, SLOT(previousClicked()));
     connect(controls, SIGNAL(changeVolume(int)), player, SLOT(setVolume(int)));
     connect(controls, SIGNAL(changeMuting(bool)), player, SLOT(setMuted(bool)));
@@ -96,7 +83,6 @@ Player::Player(QWidget *parent)
     QBoxLayout *displayLayout = new QHBoxLayout;
     displayLayout->addWidget(videoWidget, 2);
     //displayLayout->addWidget(playlistView);
-    playlistView->hide();
 
     QBoxLayout *controlLayout = new QHBoxLayout;
     controlLayout->setMargin(0);
@@ -129,23 +115,13 @@ Player::Player(QWidget *parent)
 
     setLayout(layout);
 
-    if (!player->isAvailable()) {
-        QMessageBox::warning(this, tr("Service not available"),
-                             tr("The QMediaPlayer object does not have a valid service.\n"\
-                                "Please check the media service plugins are installed."));
-
         controls->setEnabled(false);
-        playlistView->setEnabled(false);
         openButton->setEnabled(false);
      //   plotDataButton->setEnabled(true);
 
 
-    metaDataChanged();
-
     QStringList arguments = qApp->arguments();
     arguments.removeAt(0);
-    addToPlaylist(arguments);
-    }
 }
 
 void Player::frameUp()
@@ -180,26 +156,6 @@ Player::~Player()
 void Player::open()
 {
     QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Open Files"));
-    addToPlaylist(fileNames);
-}
-
-void Player::addToPlaylist(const QStringList& fileNames)
-{
-    foreach (QString const &argument, fileNames) {
-        QFileInfo fileInfo(argument);
-        if (fileInfo.exists()) {
-            QUrl url = QUrl::fromLocalFile(fileInfo.absoluteFilePath());
-            if (fileInfo.suffix().toLower() == QLatin1String("m3u")) {
-                playlist->load(url);
-            } else
-                playlist->addMedia(url);
-        } else {
-            QUrl url(argument);
-            if (url.isValid()) {
-                playlist->addMedia(url);
-            }
-        }
-    }
 }
 
 void Player::durationChanged(qint64 duration)
@@ -218,44 +174,18 @@ void Player::positionChanged(qint64 progress)
     updateDurationInfo(progress / 1000);
 }
 
-void Player::metaDataChanged()
-{
-    if (player->isMetaDataAvailable()) {
-        setTrackInfo(QString("%1 - %2")
-                .arg(player->metaData(QMediaMetaData::AlbumArtist).toString())
-                .arg(player->metaData(QMediaMetaData::Title).toString()));
-
-        if (coverLabel) {
-            QUrl url = player->metaData(QMediaMetaData::CoverArtUrlLarge).value<QUrl>();
-
-            coverLabel->setPixmap(!url.isEmpty()
-                    ? QPixmap(url.toString())
-                    : QPixmap());
-        }
-    }
-}
-
 void Player::previousClicked()
 {
     // Go to previous track if we are within the first 5 seconds of playback
     // Otherwise, seek to the beginning.
-    if(player->position() <= 5000)
-        playlist->previous();
-    else
-        player->setPosition(0);
+       player->setPosition(0);
 }
 
 void Player::jump(const QModelIndex &index)
 {
     if (index.isValid()) {
-        playlist->setCurrentIndex(index.row());
         player->play();
     }
-}
-
-void Player::playlistPositionChanged(int currentItem)
-{
-    playlistView->setCurrentIndex(playlistModel->index(currentItem, 0));
 }
 
 void Player::seek(int seconds)
@@ -332,7 +262,7 @@ void Player::setStatusInfo(const QString &info)
 
 void Player::displayErrorMessage()
 {
-    setStatusInfo(player->errorString());
+    //setStatusInfo(player->errorString());
 }
 
 void Player::updateDurationInfo(qint64 currentInfo)
