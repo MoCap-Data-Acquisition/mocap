@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QVideoFrame>
 
+#include <VLCQtCore/Enums.h>
 #include <VLCQtCore/Instance.h>
 #include <VLCQtCore/MediaPlayer.h>
 
@@ -27,43 +28,40 @@ class Player : public QWidget
 
 public:
     Player(QWidget *parent = 0);
-    qint64 timeinMillis;
     ~Player();
     VideoWidget *videoWidget;
 
 public slots:
     void frameUp();
     void frameDown();
-    //void openDisplayPlot();
+    Vlc::State getPlayerState();
+    qint64 currentTime();
+
 signals:
     void fullScreenChanged(bool fullScreen);
 
 private slots:
     void open();
-    void durationChanged(qint64 duration);
-    void positionChanged(qint64 progress);
 
     void previousClicked();
 
     void seek(int seconds);
     void jump(const QModelIndex &index);
 
-    void statusChanged(QMediaPlayer::MediaStatus status);
+    void statusChanged(Vlc::State status);
     void bufferingProgress(int progress);
     void videoAvailableChanged(bool available);
 
     void displayErrorMessage();
-  //  void displayPlotWindow();
 
 private:
     void setTrackInfo(const QString &info);
     void setStatusInfo(const QString &info);
-    void handleCursor(QMediaPlayer::MediaStatus status);
+    void handleCursor(Vlc::State status);
     void updateDurationInfo(qint64 currentInfo);
 
 //    VideoWidget *videoWidget; making this public....
     QLabel *coverLabel;
-    QSlider *slider;
     QLabel *labelDuration;
     QPushButton *nextFrame;
     QPushButton *prevFrame;

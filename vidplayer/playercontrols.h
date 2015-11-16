@@ -1,7 +1,6 @@
 #ifndef PLAYERCONTROLS_H
 #define PLAYERCONTROLS_H
 
-#include <QMediaPlayer>
 #include <QWidget>
 
 #include <VLCQtCore/Enums.h>
@@ -19,7 +18,7 @@ public:
     Vlc::State state() const;
 
 public slots:
-    void setState(Vlc::State state);
+    void setState();
     void playClicked();
 signals:
     void play();

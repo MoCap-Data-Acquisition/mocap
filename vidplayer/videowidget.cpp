@@ -11,19 +11,14 @@
 #include <QInputDialog>
 
 VideoWidget::VideoWidget(VlcMediaPlayer *player, QWidget *parent)
-    : QGraphicsView(parent)
+    : QWidget(parent)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setAttribute(Qt::WA_OpaquePaintEvent);
-    setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    scene = new QGraphicsScene(this);
     video = new VlcWidgetVideo(player, this);
-    //item->setSize(size());
-    this->setScene(scene);
-    proxy = scene->addWidget(video);
+    player->setVideoWidget(video);
+    video->resize(size());
 }
 
 void VideoWidget::setRotateVideo(bool rotate)
@@ -50,13 +45,13 @@ void VideoWidget::toggleRotateVideo()
 
 void VideoWidget::resizeEvent(QResizeEvent *event)
 {
-    QGraphicsView::resizeEvent(event);
-    //item->setSize(size());
+    QWidget::resizeEvent(event);
+    video->resize(size());
 }
 
 void VideoWidget::keyPressEvent(QKeyEvent *event)
 {
-    QGraphicsView::keyPressEvent(event);
+    QWidget::keyPressEvent(event);
 }
 
 void VideoWidget::mouseDoubleClickEvent(QMouseEvent *event)
@@ -70,7 +65,7 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
     if (isCalibrated == 0) {
         p1 = event->pos();
         isCalibrated = 1;
-        QGraphicsView::mousePressEvent(event);
+        QWidget::mousePressEvent(event);
     } else if (isCalibrated == 1) {
         QPoint p2 = event->pos();
         QPoint dist = p2 - p1;
@@ -79,27 +74,27 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
         calibrationRatio = pixels/metres;
         isCalibrated = 2;
     } else {
-        auto time = ((Player*)parentWidget())->timeinMillis;
+        auto time = ((Player*)parentWidget())->currentTime();
         point_t myPoint(currentObjectIndex, (event->x())/calibrationRatio, (event->y())/calibrationRatio, time, currentColor);
         qDebug() << "Point Added: (" << QString::number((int)event->x()) << ", " << QString::number((int) event->y()) << ", " << QString::number(time) << ")";
         objectsListVec[currentObjectIndex].push_back(myPoint);
         objectsListDirty = true;
         drawPoint = myPoint;
-        QGraphicsView::mousePressEvent(event);
-        scene->update();
+        QWidget::mousePressEvent(event);
         ((MainWindow *) parent()->parent())->update();
     }
 }
 
 void VideoWidget::paintEvent(QPaintEvent *event)
 {
-    QGraphicsView::paintEvent(event);
-    //if (drawPoint.ID >= 0) {
+    QWidget::paintEvent(event);
+    /*
     QPainter painter(this->viewport());
-        for(int i = 0; i < objectsListVec.size(); ++i) {
-            for(int j = 0; j < objectsListVec[i].size(); ++j){
-                painter.setBrush(QBrush(objectsListVec[i][j].color, Qt::SolidPattern));
-                painter.drawEllipse((objectsListVec[i][j].x * calibrationRatio) - 5, (objectsListVec[i][j].y * calibrationRatio) - 5, 10, 10);
-            }
+    for(int i = 0; i < objectsListVec.size(); ++i) {
+        for(int j = 0; j < objectsListVec[i].size(); ++j){
+            painter.setBrush(QBrush(objectsListVec[i][j].color, Qt::SolidPattern));
+            painter.drawEllipse((objectsListVec[i][j].x * calibrationRatio) - 5, (objectsListVec[i][j].y * calibrationRatio) - 5, 10, 10);
         }
+    }
+    */
 }

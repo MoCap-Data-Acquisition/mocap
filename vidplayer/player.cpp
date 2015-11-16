@@ -11,17 +11,16 @@
 #include <QShortcut>
 
 #include <VLCQtCore/Common.h>
+#include <VLCQtCore/Media.h>
 
 Player::Player(QWidget *parent)
     : QWidget(parent)
-    , videoWidget(0)
-    , coverLabel(0)
-    , slider(0)
 
 {
     vlc = new VlcInstance(VlcCommon::args(), this);
     player = new VlcMediaPlayer(vlc);
 
+    /*
     connect(player, SIGNAL(durationChanged(qint64)), SLOT(durationChanged(qint64)));
     connect(player, SIGNAL(positionChanged(qint64)), SLOT(positionChanged(qint64)));
     connect(player, SIGNAL(metaDataChanged()), SLOT(metaDataChanged()));
@@ -30,37 +29,29 @@ Player::Player(QWidget *parent)
     connect(player, SIGNAL(bufferStatusChanged(int)), this, SLOT(bufferingProgress(int)));
     connect(player, SIGNAL(videoAvailableChanged(bool)), this, SLOT(videoAvailableChanged(bool)));
     connect(player, SIGNAL(error(QMediaPlayer::Error)), this, SLOT(displayErrorMessage()));
+    */
 
     videoWidget = new VideoWidget(player, this);
     videoWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    slider = new QSlider(Qt::Horizontal, this);
-    slider->setRange(0, (player->length() / 1000));
+    //slider = new QSlider(Qt::Horizontal, this);
+    //slider->setRange(0, (player->length() / 1000));
 
     labelDuration = new QLabel(this);
-    connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(seek(int)));
 
     QPushButton *openButton = new QPushButton(tr("Open"), this);
 
     connect(openButton, SIGNAL(clicked()), this, SLOT(open()));
 
     PlayerControls *controls = new PlayerControls(this);
-    controls->setState(player->state());
+    controls->setState();
 
     connect(controls, SIGNAL(play()), player, SLOT(play()));
     connect(controls, SIGNAL(pause()), player, SLOT(pause()));
     connect(controls, SIGNAL(stop()), player, SLOT(stop()));
-    connect(controls, SIGNAL(previous()), this, SLOT(previousClicked()));
-    connect(controls, SIGNAL(changeVolume(int)), player, SLOT(setVolume(int)));
-    connect(controls, SIGNAL(changeMuting(bool)), player, SLOT(setMuted(bool)));
-    connect(controls, SIGNAL(changeRate(qreal)), player, SLOT(setPlaybackRate(qreal)));
-
     connect(controls, SIGNAL(stop()), videoWidget, SLOT(update()));
-
-    connect(player, SIGNAL(stateChanged(QMediaPlayer::State)),
-            controls, SLOT(setState(QMediaPlayer::State)));
-    connect(player, SIGNAL(volumeChanged(int)), controls, SLOT(setVolume(int)));
-    connect(player, SIGNAL(mutedChanged(bool)), controls, SLOT(setMuted(bool)));
+    connect(player, SIGNAL(stateChanged()),
+            controls, SLOT(setState()));
 
     //Frame Buttons
     nextFrame = new QPushButton("", this);
@@ -107,7 +98,7 @@ Player::Player(QWidget *parent)
     QBoxLayout *layout = new QVBoxLayout;
     layout->addLayout(displayLayout);
     QHBoxLayout *hLayout = new QHBoxLayout;
-    hLayout->addWidget(slider);
+    //hLayout->addWidget(slider);
     hLayout->addWidget(labelDuration);
     layout->addLayout(hLayout);
     layout->addLayout(controlLayout);
@@ -115,9 +106,8 @@ Player::Player(QWidget *parent)
 
     setLayout(layout);
 
-        controls->setEnabled(false);
-        openButton->setEnabled(false);
-     //   plotDataButton->setEnabled(true);
+    //controls->setEnabled(false);
+    openButton->setEnabled(true);
 
 
     QStringList arguments = qApp->arguments();
@@ -127,18 +117,23 @@ Player::Player(QWidget *parent)
 void Player::frameUp()
 {
     player->pause();
-    player->setPosition(player->position() + 20);
+    player->setPosition(player->position() + (20.0f / player->length()));
 }
 
 void Player::frameDown()
 {
     player->pause();
-    player->setPosition(player->position() - 20);
+    player->setPosition(player->position() - (20.0f / player->length()));
 }
 
 Player::~Player()
 {
 
+}
+
+qint64 Player::currentTime()
+{
+    return (qint64) player->length() * player->position();
 }
 
 //void Player::openDisplayPlot()
@@ -155,23 +150,9 @@ Player::~Player()
 
 void Player::open()
 {
-    QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Open Files"));
-}
-
-void Player::durationChanged(qint64 duration)
-{
-    this->duration = duration / 1000;
-    slider->setMaximum(duration / 1000);
-}
-
-void Player::positionChanged(qint64 progress)
-{
-    if (!slider->isSliderDown()) {
-        slider->setValue(progress / 1000);
-//        millisecondsPassed = progress;
-    }
-    timeinMillis = progress; // I think this is how it should be but can't test it...
-    updateDurationInfo(progress / 1000);
+    QString filename = QFileDialog::getOpenFileName(this, tr("Open Video"));
+    VlcMedia *file = new VlcMedia(filename, true, vlc);
+    player->open(file);
 }
 
 void Player::previousClicked()
@@ -193,44 +174,25 @@ void Player::seek(int seconds)
     player->setPosition(seconds * 1000);
 }
 
-void Player::statusChanged(QMediaPlayer::MediaStatus status)
+void Player::statusChanged(Vlc::State status)
 {
     handleCursor(status);
-
-    // handle status message
-    switch (status) {
-    case QMediaPlayer::UnknownMediaStatus:
-    case QMediaPlayer::NoMedia:
-    case QMediaPlayer::LoadedMedia:
-    case QMediaPlayer::BufferingMedia:
-    case QMediaPlayer::BufferedMedia:
-        setStatusInfo(QString());
-        break;
-    case QMediaPlayer::LoadingMedia:
-        setStatusInfo(tr("Loading..."));
-        break;
-    case QMediaPlayer::StalledMedia:
-        setStatusInfo(tr("Media Stalled"));
-        break;
-    case QMediaPlayer::EndOfMedia:
-        QApplication::alert(this);
-        break;
-    case QMediaPlayer::InvalidMedia:
-        displayErrorMessage();
-        break;
-    }
 }
 
-void Player::handleCursor(QMediaPlayer::MediaStatus status)
+void Player::handleCursor(Vlc::State status)
 {
 #ifndef QT_NO_CURSOR
-    if (status == QMediaPlayer::LoadingMedia ||
-        status == QMediaPlayer::BufferingMedia ||
-        status == QMediaPlayer::StalledMedia)
+    if (status == Vlc::State::Opening ||
+        status == Vlc::State::Buffering)
         setCursor(QCursor(Qt::BusyCursor));
     else
         unsetCursor();
 #endif
+}
+
+Vlc::State Player::getPlayerState()
+{
+    return player->state();
 }
 
 void Player::bufferingProgress(int progress)

@@ -4,7 +4,6 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QGraphicsProxyWidget>
-#include <QMediaPlayer>
 #include <QVector>
 #include <QtGui>
 #include <QDebug>
@@ -14,7 +13,7 @@
 #include <VLCQtCore/MediaPlayer.h>
 #include <VLCQtWidgets/WidgetVideo.h>
 
-class VideoWidget : public QGraphicsView
+class VideoWidget : public QWidget
 {
     Q_OBJECT
 
@@ -34,8 +33,8 @@ protected:
     void paintEvent(QPaintEvent *event);
 
 private:
-    QGraphicsScene *scene;
-    QGraphicsProxyWidget *proxy;
+    //QGraphicsScene *scene;
+    //QGraphicsProxyWidget *proxy;
     VlcWidgetVideo *video;
     point_t drawPoint;
     bool videoRotated;

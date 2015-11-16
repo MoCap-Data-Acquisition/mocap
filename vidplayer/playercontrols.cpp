@@ -6,6 +6,7 @@
 #include <QStyle>
 #include <QToolButton>
 #include <QComboBox>
+#include "player.h"
 
 PlayerControls::PlayerControls(QWidget *parent)
     : QWidget(parent)
@@ -39,21 +40,22 @@ Vlc::State PlayerControls::state() const
     return playerState;
 }
 
-void PlayerControls::setState(Vlc::State state)
+void PlayerControls::setState()
 {
+    Vlc::State state = ((Player *) parent())->getPlayerState();
     if (state != playerState) {
         playerState = state;
 
         switch (state) {
-        case Vlc::Stopped:
+        case Vlc::State::Stopped:
             stopButton->setEnabled(false);
             playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
             break;
-        case Vlc::Playing:
+        case Vlc::State::Playing:
             stopButton->setEnabled(true);
             playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
             break;
-        case Vlc::Paused:
+        case Vlc::State::Paused:
             stopButton->setEnabled(true);
             playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
             break;
