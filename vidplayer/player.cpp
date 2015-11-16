@@ -20,22 +20,12 @@ Player::Player(QWidget *parent)
     vlc = new VlcInstance(VlcCommon::args(), this);
     player = new VlcMediaPlayer(vlc);
 
-    /*
-    connect(player, SIGNAL(durationChanged(qint64)), SLOT(durationChanged(qint64)));
-    connect(player, SIGNAL(positionChanged(qint64)), SLOT(positionChanged(qint64)));
-    connect(player, SIGNAL(metaDataChanged()), SLOT(metaDataChanged()));
-    connect(player, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
-            this, SLOT(statusChanged(QMediaPlayer::MediaStatus)));
-    connect(player, SIGNAL(bufferStatusChanged(int)), this, SLOT(bufferingProgress(int)));
-    connect(player, SIGNAL(videoAvailableChanged(bool)), this, SLOT(videoAvailableChanged(bool)));
-    connect(player, SIGNAL(error(QMediaPlayer::Error)), this, SLOT(displayErrorMessage()));
-    */
-
-    videoWidget = new VideoWidget(player, this);
+    videoWidget = new VideoWidget(this);
     videoWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    videoWidget->setMediaPlayer(player);
 
-    //slider = new QSlider(Qt::Horizontal, this);
-    //slider->setRange(0, (player->length() / 1000));
+    slider = new VlcWidgetSeek(this);
+    slider->setMediaPlayer(player);
 
     labelDuration = new QLabel(this);
 
@@ -98,7 +88,7 @@ Player::Player(QWidget *parent)
     QBoxLayout *layout = new QVBoxLayout;
     layout->addLayout(displayLayout);
     QHBoxLayout *hLayout = new QHBoxLayout;
-    //hLayout->addWidget(slider);
+    hLayout->addWidget(slider);
     hLayout->addWidget(labelDuration);
     layout->addLayout(hLayout);
     layout->addLayout(controlLayout);

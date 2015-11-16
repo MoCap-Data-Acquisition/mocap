@@ -18,12 +18,13 @@ class VideoWidget : public QWidget
     Q_OBJECT
 
 public:
-    VideoWidget(VlcMediaPlayer *player, QWidget *parent = 0);
+    VideoWidget(QWidget *parent = 0);
 
 public slots:
     void setRotateVideo(bool rotate);
     void exportCSVData();
     void toggleRotateVideo();
+    void setMediaPlayer(VlcMediaPlayer *player);
 
 protected:
     void resizeEvent(QResizeEvent *event);

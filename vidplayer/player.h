@@ -9,6 +9,7 @@
 #include <VLCQtCore/Enums.h>
 #include <VLCQtCore/Instance.h>
 #include <VLCQtCore/MediaPlayer.h>
+#include <VLCQtWidgets/WidgetSeek.h>
 
 class QAbstractItemView;
 class QLabel;
@@ -72,6 +73,7 @@ private:
 
     VlcInstance *vlc;
     VlcMediaPlayer *player;
+    VlcWidgetSeek *slider;
 
     QString trackInfo;
     QString statusInfo;

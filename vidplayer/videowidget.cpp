@@ -10,15 +10,19 @@
 #include "mainwindow.h"
 #include <QInputDialog>
 
-VideoWidget::VideoWidget(VlcMediaPlayer *player, QWidget *parent)
+VideoWidget::VideoWidget(QWidget *parent)
     : QWidget(parent)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setAttribute(Qt::WA_OpaquePaintEvent);
 
-    video = new VlcWidgetVideo(player, this);
-    player->setVideoWidget(video);
+    video = new VlcWidgetVideo(this);
     video->resize(size());
+}
+
+void VideoWidget::setMediaPlayer(VlcMediaPlayer *player) {
+    video->setMediaPlayer(player);
+    player->setVideoWidget(video);
 }
 
 void VideoWidget::setRotateVideo(bool rotate)
@@ -89,7 +93,7 @@ void VideoWidget::paintEvent(QPaintEvent *event)
 {
     QWidget::paintEvent(event);
     /*
-    QPainter painter(this->viewport());
+    QPainter painter(this);
     for(int i = 0; i < objectsListVec.size(); ++i) {
         for(int j = 0; j < objectsListVec[i].size(); ++j){
             painter.setBrush(QBrush(objectsListVec[i][j].color, Qt::SolidPattern));
