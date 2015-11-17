@@ -89,6 +89,7 @@ QColor pointtracker::randomColorGenerator()
 
 void pointtracker::on_pointsList_itemClicked(QListWidgetItem *item)
 {
+    Q_UNUSED(item);
     lastSelected = ui->pointsList->currentRow();
     qDebug() << "Last item selected: " << QString::number(lastSelected);
 }

@@ -11,22 +11,26 @@
 #include <QInputDialog>
 
 VideoWidget::VideoWidget(QWidget *parent)
-    : QWidget(parent)
+    : QGraphicsView(parent)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setAttribute(Qt::WA_OpaquePaintEvent);
 
-    video = new VlcWidgetVideo(this);
-    video->resize(size());
+    scene = new QGraphicsScene(this);
+    video = new GraphicsVlcItem();
+    //video->resize(size());
+    scene->addItem(video);
+    setScene(scene);
 }
 
 void VideoWidget::setMediaPlayer(VlcMediaPlayer *player) {
     video->setMediaPlayer(player);
-    player->setVideoWidget(video);
+    //player->setVideoWidget(video);
 }
 
 void VideoWidget::setRotateVideo(bool rotate)
 {
+    Q_UNUSED(rotate);
     /*
     QSizeF isize = item->size();
     item->setTransformOriginPoint(isize.width() / 2, isize.height() / 2);
@@ -49,17 +53,18 @@ void VideoWidget::toggleRotateVideo()
 
 void VideoWidget::resizeEvent(QResizeEvent *event)
 {
-    QWidget::resizeEvent(event);
-    video->resize(size());
+    QGraphicsView::resizeEvent(event);
+    //video->resize(size());
 }
 
 void VideoWidget::keyPressEvent(QKeyEvent *event)
 {
-    QWidget::keyPressEvent(event);
+    QGraphicsView::keyPressEvent(event);
 }
 
 void VideoWidget::mouseDoubleClickEvent(QMouseEvent *event)
 {
+    QGraphicsView::mouseDoubleClickEvent(event);
     /*setFullScreen(!isfullscreen());
     event->accept();*/
 }
@@ -69,7 +74,7 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
     if (isCalibrated == 0) {
         p1 = event->pos();
         isCalibrated = 1;
-        QWidget::mousePressEvent(event);
+        QGraphicsView::mousePressEvent(event);
     } else if (isCalibrated == 1) {
         QPoint p2 = event->pos();
         QPoint dist = p2 - p1;
@@ -84,21 +89,20 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
         objectsListVec[currentObjectIndex].push_back(myPoint);
         objectsListDirty = true;
         drawPoint = myPoint;
-        QWidget::mousePressEvent(event);
+        QGraphicsView::mousePressEvent(event);
+        viewport()->repaint();
         ((MainWindow *) parent()->parent())->update();
     }
 }
 
 void VideoWidget::paintEvent(QPaintEvent *event)
 {
-    QWidget::paintEvent(event);
-    /*
-    QPainter painter(this);
+    QGraphicsView::paintEvent(event);
+    QPainter painter(this->viewport());
     for(int i = 0; i < objectsListVec.size(); ++i) {
         for(int j = 0; j < objectsListVec[i].size(); ++j){
-            painter.setBrush(QBrush(objectsListVec[i][j].color, Qt::SolidPattern));
+            painter.setBrush(QBrush(/*objectsListVec[i][j].color*/Qt::blue, Qt::SolidPattern));
             painter.drawEllipse((objectsListVec[i][j].x * calibrationRatio) - 5, (objectsListVec[i][j].y * calibrationRatio) - 5, 10, 10);
         }
     }
-    */
 }

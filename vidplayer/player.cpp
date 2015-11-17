@@ -192,6 +192,7 @@ void Player::bufferingProgress(int progress)
 
 void Player::videoAvailableChanged(bool available)
 {
+    Q_UNUSED(available);
 }
 
 void Player::setTrackInfo(const QString &info)

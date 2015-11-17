@@ -12,8 +12,9 @@
 
 #include <VLCQtCore/MediaPlayer.h>
 #include <VLCQtWidgets/WidgetVideo.h>
+#include "GraphicsVlcItem.h"
 
-class VideoWidget : public QWidget
+class VideoWidget : public QGraphicsView
 {
     Q_OBJECT
 
@@ -34,9 +35,9 @@ protected:
     void paintEvent(QPaintEvent *event);
 
 private:
-    //QGraphicsScene *scene;
-    //QGraphicsProxyWidget *proxy;
-    VlcWidgetVideo *video;
+    QGraphicsScene *scene;
+    GraphicsVlcItem *video;
+    //VlcWidgetVideo *video;
     point_t drawPoint;
     bool videoRotated;
     double calibrationRatio = -1.0;

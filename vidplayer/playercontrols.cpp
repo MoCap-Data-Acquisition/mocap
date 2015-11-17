@@ -59,6 +59,8 @@ void PlayerControls::setState()
             stopButton->setEnabled(true);
             playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
             break;
+        default:
+            break;
         }
     }
 }
@@ -72,6 +74,8 @@ void PlayerControls::playClicked()
         break;
     case Vlc::State::Playing:
         emit pause();
+        break;
+    default:
         break;
     }
 }
