@@ -16,9 +16,12 @@ VideoWidget::VideoWidget(QWidget *parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setAttribute(Qt::WA_OpaquePaintEvent);
 
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
     scene = new QGraphicsScene(this);
     video = new GraphicsVlcItem();
-    //video->resize(size());
+    video->resize(viewport()->size());
     scene->addItem(video);
     setScene(scene);
 }
@@ -31,13 +34,11 @@ void VideoWidget::setMediaPlayer(VlcMediaPlayer *player) {
 void VideoWidget::setRotateVideo(bool rotate)
 {
     Q_UNUSED(rotate);
-    /*
-    QSizeF isize = item->size();
-    item->setTransformOriginPoint(isize.width() / 2, isize.height() / 2);
-    item->setRotation(rotate ? 180 : 0);
+    QRectF isize = video->boundingRect();
+    video->setTransformOriginPoint(isize.width() / 2, isize.height() / 2);
+    video->setRotation(rotate ? 180 : 0);
     videoRotated = rotate;
     scene->update();
-    */
 }
 void VideoWidget::exportCSVData()
 {
@@ -54,7 +55,7 @@ void VideoWidget::toggleRotateVideo()
 void VideoWidget::resizeEvent(QResizeEvent *event)
 {
     QGraphicsView::resizeEvent(event);
-    //video->resize(size());
+    video->resize(viewport()->size());
 }
 
 void VideoWidget::keyPressEvent(QKeyEvent *event)

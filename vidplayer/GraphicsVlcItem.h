@@ -22,9 +22,9 @@
 #ifndef VLCQT_QMLVIDEOOBJECT_H_
 #define VLCQT_QMLVIDEOOBJECT_H_
 
-#include <QtCore/QMap>
-#include <QtCore/QMutex>
-#include <QtWidgets/QGraphicsItem>
+#include <QMutex>
+#include <QGraphicsItem>
+#include <QWaitCondition>
 
 #include <VLCQtCore/Enums.h>
 #include <VLCQtCore/VideoFrame.h>
@@ -57,6 +57,8 @@ public:
 
     virtual QRectF boundingRect() const override;
 
+    void resize(const QSizeF & size);
+
     /*!
         \brief Connect to media player
         \param player media player
@@ -78,6 +80,8 @@ private slots:
     void reset();
 
 private:
+    void setVideoRect();
+
     virtual void *lockCallback(void **planes) override;
     virtual void unlockCallback(void *picture, void *const *planes) override;
     virtual void displayCallback(void *picture) override;
@@ -90,7 +94,8 @@ private:
 
     QMutex _mutex;
     VlcVideoFrame _frame;
-    QRectF _boundingRect;
+    QRectF _boundingRect, _videoRect;
+    bool _drawn;
 };
 
 #endif // VLCQT_QMLVIDEOOBJECT_H_
