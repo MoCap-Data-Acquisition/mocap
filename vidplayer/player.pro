@@ -26,21 +26,7 @@ HEADERS = \
     pointstruct.h \
     pointtocsv.h \
     pointtracker.h \
-    borderlayout.h \
-    Alglib/alglibinternal.h \
-    Alglib/alglibmisc.h \
-    Alglib/ap.h \
-    Alglib/dataanalysis.h \
-    Alglib/diffequations.h \
-    Alglib/fasttransforms.h \
-    Alglib/integration.h \
-    Alglib/interpolation.h \
-    Alglib/linalg.h \
-    Alglib/optimization.h \
-    Alglib/solvers.h \
-    Alglib/specialfunctions.h \
-    Alglib/statistics.h \
-    Alglib/stdafx.h
+    borderlayout.h
 SOURCES = main.cpp \
     player.cpp \
     playercontrols.cpp \
@@ -52,20 +38,7 @@ SOURCES = main.cpp \
     pointstruct.cpp \
     pointtocsv.cpp \
     pointtracker.cpp \
-    borderlayout.cpp \
-    Alglib/alglibinternal.cpp \
-    Alglib/alglibmisc.cpp \
-    Alglib/ap.cpp \
-    Alglib/dataanalysis.cpp \
-    Alglib/diffequations.cpp \
-    Alglib/fasttransforms.cpp \
-    Alglib/integration.cpp \
-    Alglib/interpolation.cpp \
-    Alglib/linalg.cpp \
-    Alglib/optimization.cpp \
-    Alglib/solvers.cpp \
-    Alglib/specialfunctions.cpp \
-    Alglib/statistics.cpp
+    borderlayout.cpp
 
 maemo* {
     DEFINES += PLAYER_NO_COLOROPTIONS
