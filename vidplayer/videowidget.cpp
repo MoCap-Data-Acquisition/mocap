@@ -56,6 +56,7 @@ void VideoWidget::resizeEvent(QResizeEvent *event)
 {
     QGraphicsView::resizeEvent(event);
     video->resize(viewport()->size());
+    update();
 }
 
 void VideoWidget::keyPressEvent(QKeyEvent *event)
