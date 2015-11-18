@@ -12,13 +12,14 @@
 
 #include <VLCQtCore/Common.h>
 #include <VLCQtCore/Media.h>
+#include <VLCQtCore/Audio.h>
 
 Player::Player(QWidget *parent)
     : QWidget(parent)
-
 {
     vlc = new VlcInstance(VlcCommon::args(), this);
     player = new VlcMediaPlayer(vlc);
+    player->audio()->setMute(true);
 
     videoWidget = new VideoWidget(this);
     videoWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
