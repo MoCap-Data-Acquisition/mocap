@@ -15,6 +15,7 @@ VideoWidget::VideoWidget(QWidget *parent)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setAttribute(Qt::WA_OpaquePaintEvent);
+    setBackgroundBrush(QBrush(Qt::black));
 
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -56,7 +57,6 @@ void VideoWidget::resizeEvent(QResizeEvent *event)
 {
     QGraphicsView::resizeEvent(event);
     video->resize(viewport()->size());
-    update();
 }
 
 void VideoWidget::keyPressEvent(QKeyEvent *event)
