@@ -39,7 +39,6 @@ private:
     GraphicsVlcItem *video;
     //VlcWidgetVideo *video;
     point_t drawPoint;
-    bool videoRotated;
     double calibrationRatio = -1.0;
     int isCalibrated = 0;
     QPoint p1;

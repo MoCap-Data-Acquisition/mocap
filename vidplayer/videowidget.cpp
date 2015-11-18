@@ -34,12 +34,7 @@ void VideoWidget::setMediaPlayer(VlcMediaPlayer *player) {
 
 void VideoWidget::setRotateVideo(bool rotate)
 {
-    Q_UNUSED(rotate);
-    QRectF isize = video->boundingRect();
-    video->setTransformOriginPoint(isize.width() / 2, isize.height() / 2);
-    video->setRotation(rotate ? 180 : 0);
-    videoRotated = rotate;
-    scene->update();
+    video->setFlipped(rotate);
 }
 void VideoWidget::exportCSVData()
 {
@@ -50,7 +45,7 @@ void VideoWidget::exportCSVData()
 
 void VideoWidget::toggleRotateVideo()
 {
-    setRotateVideo(!videoRotated);
+    setRotateVideo(!video->flipped());
 }
 
 void VideoWidget::resizeEvent(QResizeEvent *event)

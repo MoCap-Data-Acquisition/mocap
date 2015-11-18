@@ -33,7 +33,8 @@ GraphicsVlcItem::GraphicsVlcItem(QGraphicsItem *parent)
       _player(nullptr),
       _boundingRect(0, 0, 0, 0),
       _videoRect(0, 0, 0, 0),
-      _drawn(true)
+      _drawn(true),
+      _flip(false)
 {  }
 
 GraphicsVlcItem::~GraphicsVlcItem() {  }
@@ -50,6 +51,7 @@ void GraphicsVlcItem::paint(QPainter *painter,
     if( _frame.inited )
     {
         QImage image((const uchar *) _frame.plane[0].constData(), _frame.width, _frame.height, _frame.pitch[0], QImage::Format_RGB32);
+        if (_flip) painter->setTransform(QTransform(-1, 0, 0, -1, _boundingRect.width(), _boundingRect.height()), true);
         painter->drawImage(_videoRect, image);
     }
     _drawn = true;
@@ -64,6 +66,15 @@ void GraphicsVlcItem::resize(const QSizeF &size) {
     _boundingRect.setSize(size);
     setVideoRect();
     prepareGeometryChange();
+}
+
+bool GraphicsVlcItem::flipped() const {
+    return _flip;
+}
+
+void GraphicsVlcItem::setFlipped(bool flipped) {
+    _flip = flipped;
+    QMetaObject::invokeMethod(this, "frameReady", Qt::QueuedConnection);
 }
 
 void GraphicsVlcItem::frameReady()

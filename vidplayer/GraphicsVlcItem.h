@@ -59,6 +59,9 @@ public:
 
     void resize(const QSizeF & size);
 
+    bool flipped() const;
+    void setFlipped(bool flipped);
+
     /*!
         \brief Connect to media player
         \param player media player
@@ -95,7 +98,7 @@ private:
     QMutex _mutex;
     VlcVideoFrame _frame;
     QRectF _boundingRect, _videoRect;
-    bool _drawn;
+    bool _drawn, _flip;
 };
 
 #endif // VLCQT_QMLVIDEOOBJECT_H_
