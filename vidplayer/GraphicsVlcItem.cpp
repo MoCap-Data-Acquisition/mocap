@@ -50,7 +50,7 @@ void GraphicsVlcItem::paint(QPainter *painter,
     painter->fillRect(_boundingRect, QBrush(Qt::black));
     if( _frame.inited )
     {
-        QImage image((const uchar *) _frame.plane[0].constData(), _frame.width, _frame.height, _frame.pitch[0], QImage::Format_RGB32);
+        QImage image(reinterpret_cast<const uchar *>(_frame.plane[0].constData()), _frame.width, _frame.height, QImage::Format_RGB32);
         if (_flip) painter->setTransform(QTransform(-1, 0, 0, -1, _boundingRect.width(), _boundingRect.height()), true);
         painter->drawImage(_videoRect, image);
     }
