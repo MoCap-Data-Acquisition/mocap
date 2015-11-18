@@ -63,3 +63,11 @@ FORMS += \
     mainwindow.ui \
     plotwindow.ui \
     pointtracker.ui
+
+win32 {
+    CONFIG(release, debug|release): LIBS += -L$$PWD/../../Downloads/vlcqt/bin/ -llibVLCQtCore -llibVLCQtWidgets
+    CONFIG(debug, debug|release): LIBS += -L$$PWD/../../Downloads/vlcqt/bin/ -llibVLCQtCored -llibVLCQtWidgetsd
+
+    INCLUDEPATH += $$PWD/../../Downloads/vlcqt/include
+    DEPENDPATH += $$PWD/../../Downloads/vlcqt/include
+}
