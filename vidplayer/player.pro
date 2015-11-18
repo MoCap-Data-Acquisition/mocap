@@ -46,6 +46,8 @@ maemo* {
 
 unix:!macx {
     LIBS       += -lVLCQtCore -lVLCQtWidgets
+    INCLUDEPATH += ~/Documents/programming/C++/vlc-qt-build/include
+    INCLUDEPATH += ~/Documents/programming/C++/vlc-qt-build/src
 }
 
 macx {
