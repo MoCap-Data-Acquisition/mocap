@@ -36,6 +36,7 @@ public slots:
     void frameUp();
     void frameDown();
     Vlc::State getPlayerState();
+    float currentPosition();
     qint64 currentTime();
 
 signals:
@@ -45,8 +46,8 @@ private slots:
     void open();
 
     void previousClicked();
+    void positionChanged(float position);
 
-    void seek(int seconds);
     void jump(const QModelIndex &index);
 
     void statusChanged(Vlc::State status);

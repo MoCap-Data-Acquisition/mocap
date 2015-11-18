@@ -40,8 +40,8 @@ Player::Player(QWidget *parent)
     connect(controls, SIGNAL(pause()), player, SLOT(pause()));
     connect(controls, SIGNAL(stop()), player, SLOT(stop()));
     connect(controls, SIGNAL(stop()), videoWidget, SLOT(update()));
-    connect(player, SIGNAL(stateChanged()),
-            controls, SLOT(setState()));
+    connect(player, SIGNAL(stateChanged()), controls, SLOT(setState()));
+    connect(player, SIGNAL(positionChanged(float)), this, SLOT(positionChanged(float)));
 
     //Frame Buttons
     nextFrame = new QPushButton("", this);
@@ -121,6 +121,11 @@ Player::~Player()
 
 }
 
+float Player::currentPosition()
+{
+    return player->position();
+}
+
 qint64 Player::currentTime()
 {
     return (qint64) player->length() * player->position();
@@ -159,14 +164,13 @@ void Player::jump(const QModelIndex &index)
     }
 }
 
-void Player::seek(int seconds)
-{
-    player->setPosition(seconds * 1000);
-}
-
 void Player::statusChanged(Vlc::State status)
 {
     handleCursor(status);
+}
+
+void Player::positionChanged(float position) {
+    if (position >= 1.0) player->pause();
 }
 
 void Player::handleCursor(Vlc::State status)

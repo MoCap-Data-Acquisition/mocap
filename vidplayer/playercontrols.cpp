@@ -21,15 +21,8 @@ PlayerControls::PlayerControls(QWidget *parent)
     connect(playButton, SIGNAL(clicked()), this, SLOT(playClicked()));
     playButton->setShortcut(Qt::Key_Space);
 
-    stopButton = new QToolButton(this);
-    stopButton->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
-    stopButton->setEnabled(false);
-
-    connect(stopButton, SIGNAL(clicked()), this, SIGNAL(stop()));
-
     QBoxLayout *layout = new QHBoxLayout;
     layout->setMargin(0);
-    layout->addWidget(stopButton);
     layout->addWidget(playButton);
 
     setLayout(layout);
@@ -48,17 +41,15 @@ void PlayerControls::setState()
 
         switch (state) {
         case Vlc::State::Stopped:
-            stopButton->setEnabled(false);
             playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
             break;
         case Vlc::State::Playing:
-            stopButton->setEnabled(true);
             playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
             break;
         case Vlc::State::Paused:
-            stopButton->setEnabled(true);
             playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
             break;
+        case Vlc::State::Ended:
         default:
             break;
         }
@@ -70,7 +61,7 @@ void PlayerControls::playClicked()
     switch (playerState) {
     case Vlc::State::Stopped:
     case Vlc::State::Paused:
-        emit play();
+        if (((Player *) parent())->currentPosition() < 1.0) emit play();
         break;
     case Vlc::State::Playing:
         emit pause();
