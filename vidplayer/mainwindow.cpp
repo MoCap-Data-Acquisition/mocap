@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(exportCSVBtn, SIGNAL(clicked()), player->videoWidget, SLOT(exportCSVData()));
     QPushButton *flipVideoBtn = new QPushButton("Flip Video", this);
     connect(flipVideoBtn, SIGNAL(clicked(bool)), player->videoWidget, SLOT(toggleRotateVideo()));
+    QPushButton *helpBtn = new QPushButton("Help", this);
+    connect(helpBtn, SIGNAL(clicked()), this, SLOT(openHelpMenu()));
 
     QVBoxLayout *mainLayout = new QVBoxLayout();
     QHBoxLayout *topRow = new QHBoxLayout();
@@ -31,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     topRow->addWidget(displayDataBtn);
     topRow->addWidget(exportCSVBtn);
     topRow->addWidget(flipVideoBtn);
+    topRow->addWidget(helpBtn);
 
 //    player->setMinimumWidth((int) this->width()*3/4);
     thePointTracker->setMinimumWidth((int) this->width()*.41);
@@ -70,6 +73,10 @@ void MainWindow::openDisplayPlot()
 {
     displayPlotWindow.setupDisplayTest();
     displayPlotWindow.show();
+}
+void MainWindow::openHelpMenu()
+{
+    helpmenu.show();
 }
 
 void MainWindow::refreshPointTracker()

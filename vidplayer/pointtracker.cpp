@@ -26,7 +26,7 @@ void pointtracker::on_addObjectButton_clicked()
     objectsListVec.push_back(newObject);
     objectsListDirty = true;
     currentColor = randomColorGenerator();
-    ui->objectList->addItem("Object " + QString::number(objectsListVec.size()));
+    ui->objectList->addItem("Trajectory " + QString::number(objectsListVec.size()));
     //Set newly made to index
     ui->objectList->setCurrentIndex(ui->objectList->count() - 1);
     repaint();
@@ -92,4 +92,20 @@ void pointtracker::on_pointsList_itemClicked(QListWidgetItem *item)
     Q_UNUSED(item);
     lastSelected = ui->pointsList->currentRow();
     qDebug() << "Last item selected: " << QString::number(lastSelected);
+}
+
+void pointtracker::on_pushButton_clicked()
+{
+    if (lastSelected >= 0 && objectsListVec[ui->objectList->currentIndex()][lastSelected].isDiscontinuity == 0) {
+        objectsListVec[ui->objectList->currentIndex()][lastSelected].isDiscontinuity = 1;
+        auto item = objectsListVec[ui->objectList->currentIndex()][lastSelected];
+        ui->pointsList->item(lastSelected)->setText("x: " + QString::number(item.x, 'f', 2) + " y: " + QString::number(item.y, 'f', 2) + " t: " + QString::number(item.time) + " ms" + "  [Discontinuity]");
+        on_listChanged();
+        objectsListDirty = true;
+        repaint();
+    } else {
+        objectsListVec[ui->objectList->currentIndex()][lastSelected].isDiscontinuity = 0;
+        objectsListDirty = true;
+        repaint();
+    }
 }

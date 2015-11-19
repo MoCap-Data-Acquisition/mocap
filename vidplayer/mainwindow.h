@@ -5,6 +5,8 @@
 #include "plotwindow.h"
 #include "player.h"
 #include "pointtracker.h"
+#include "helpmenu.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -22,6 +24,7 @@ public:
 
 public slots:
     void openDisplayPlot();
+    void openHelpMenu();
     void refreshPointTracker();
 private:
     Player* player;
@@ -30,6 +33,8 @@ private:
     Ui::MainWindow *ui;
    // NewWindow *displayPlotWindow;
     PlotWindow displayPlotWindow;
+    Helpmenu helpmenu;
+
 };
 
 #endif // MAINWINDOW_H

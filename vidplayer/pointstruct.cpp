@@ -5,14 +5,16 @@ point_t::point_t() {
     x = -1;
     y = -1;
     time = -1.0;
+    isDiscontinuity = 0;
 }
 
-point_t::point_t(const int myID, const double myX, const double myY, const int t, const QColor c) {
+point_t::point_t(const int myID, const double myX, const double myY, const int t, const QColor c, int isDisc) {
     ID = myID;
     x = myX;
     y = myY;
     time = t;
     color = c;
+    isDiscontinuity = isDisc;
 }
 
 int currentObjectIndex = 0;

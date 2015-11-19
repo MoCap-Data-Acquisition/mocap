@@ -33,6 +33,8 @@ private slots:
 
     void on_pointsList_itemClicked(QListWidgetItem *item);
 
+    void on_pushButton_clicked();
+
 private:
     int lastSelected;
     void paintEvent(QPaintEvent *event);

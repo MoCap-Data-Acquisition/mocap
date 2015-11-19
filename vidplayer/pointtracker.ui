@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>324</width>
-    <height>543</height>
+    <width>338</width>
+    <height>565</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -31,8 +31,8 @@
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>311</width>
-      <height>531</height>
+      <width>326</width>
+      <height>561</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -55,13 +55,26 @@
         </size>
        </property>
        <property name="text">
-        <string>Add Object To Track</string>
+        <string>Add Trajectory</string>
        </property>
        <property name="iconSize">
         <size>
          <width>170</width>
          <height>159</height>
         </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>62</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Mark Point as Discontinuity</string>
        </property>
       </widget>
      </item>
@@ -95,7 +108,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Delete Object</string>
+          <string>Delete Trajectory</string>
          </property>
         </widget>
        </item>

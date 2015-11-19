@@ -81,7 +81,7 @@ void VideoWidget::mousePressEvent(QMouseEvent *event)
         isCalibrated = 2;
     } else {
         auto time = ((Player*)parentWidget())->currentTime();
-        point_t myPoint(currentObjectIndex, (event->x())/calibrationRatio, (event->y())/calibrationRatio, time, currentColor);
+        point_t myPoint(currentObjectIndex, (event->x())/calibrationRatio, (event->y())/calibrationRatio, time, currentColor, 0);
         qDebug() << "Point Added: (" << QString::number((int)event->x()) << ", " << QString::number((int) event->y()) << ", " << QString::number(time) << ")";
         objectsListVec[currentObjectIndex].push_back(myPoint);
         objectsListDirty = true;
@@ -98,7 +98,7 @@ void VideoWidget::paintEvent(QPaintEvent *event)
     QPainter painter(this->viewport());
     for(int i = 0; i < objectsListVec.size(); ++i) {
         for(int j = 0; j < objectsListVec[i].size(); ++j){
-            painter.setBrush(QBrush(/*objectsListVec[i][j].color*/Qt::blue, Qt::SolidPattern));
+            painter.setBrush(QBrush(objectsListVec[i][j].color, Qt::SolidPattern));
             painter.drawEllipse((objectsListVec[i][j].x * calibrationRatio) - 5, (objectsListVec[i][j].y * calibrationRatio) - 5, 10, 10);
         }
     }

@@ -12,9 +12,10 @@ struct point_t
    double y;
    int time;
    QColor color;
+   int isDiscontinuity;
 
    point_t();
-   point_t(const int myID, const double myX, const double myY, const int t, const QColor c);
+   point_t(const int myID, const double myX, const double myY, const int t, const QColor c, int isDisc);
 };
 
 //extern QVector<point_t> points;

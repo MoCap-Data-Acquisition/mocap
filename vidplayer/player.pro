@@ -13,7 +13,9 @@ QT += network \
       xml \
       multimedia \
       multimediawidgets \
-      widgets
+      widgets \
+      webkit \
+      webkitwidgets
 
 HEADERS = \
     player.h \
@@ -25,8 +27,8 @@ HEADERS = \
     pointstruct.h \
     pointtocsv.h \
     pointtracker.h \
-    borderlayout.h \
-    GraphicsVlcItem.h
+    GraphicsVlcItem.h \
+    helpmenu.h
 SOURCES = main.cpp \
     player.cpp \
     playercontrols.cpp \
@@ -37,8 +39,8 @@ SOURCES = main.cpp \
     pointstruct.cpp \
     pointtocsv.cpp \
     pointtracker.cpp \
-    borderlayout.cpp \
-    GraphicsVlcItem.cpp
+    GraphicsVlcItem.cpp \
+    helpmenu.cpp
 
 maemo* {
     DEFINES += PLAYER_NO_COLOROPTIONS
@@ -64,7 +66,8 @@ INSTALLS += target
 FORMS += \
     mainwindow.ui \
     plotwindow.ui \
-    pointtracker.ui
+    pointtracker.ui \
+    helpmenu.ui
 
 win32 {
     CONFIG(release, debug|release): LIBS += -L$$PWD/../../Downloads/vlcqt/bin/ -llibVLCQtCore -llibVLCQtWidgets
