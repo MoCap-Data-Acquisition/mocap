@@ -35,6 +35,12 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_setScaleBtn_clicked();
+
+    void on_setOriginBtn_clicked();
+
+    void on_addPointsBtn_clicked();
+
 private:
     int lastSelected;
     void paintEvent(QPaintEvent *event);

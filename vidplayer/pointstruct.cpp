@@ -22,7 +22,9 @@ QColor currentColor = Qt::blue;
 //QVector<point_t> points;
 QVector< QVector<point_t> > objectsListVec;
 bool objectsListDirty = true;
-
+int clickAction = 0;
+int tZero = 0;
+QPoint origin = {0,0};
 QVector<point_t> filterID(int id) {
     QVector<point_t> po;
     Q_FOREACH(point_t p, objectsListVec[currentObjectIndex]) {

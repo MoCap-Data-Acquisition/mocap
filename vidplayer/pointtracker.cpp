@@ -13,6 +13,7 @@ pointtracker::pointtracker(QWidget *parent) :
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     on_addObjectButton_clicked();
     lastSelected = -1;
+    ui->addPointsBtn->setEnabled(false);
 }
 
 pointtracker::~pointtracker()
@@ -108,4 +109,23 @@ void pointtracker::on_pushButton_clicked()
         objectsListDirty = true;
         repaint();
     }
+}
+
+void pointtracker::on_setScaleBtn_clicked()
+{
+    clickAction = 1;
+    //->setEnabled(false);
+    ui->setScaleBtn->setEnabled(false);
+    ui->addPointsBtn->setEnabled(true);
+}
+
+void pointtracker::on_setOriginBtn_clicked()
+{
+    clickAction = 2;
+    ui->setOriginBtn->setEnabled(false);
+}
+
+void pointtracker::on_addPointsBtn_clicked()
+{
+    clickAction = 3;
 }
