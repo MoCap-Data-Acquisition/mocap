@@ -9,13 +9,7 @@ TARGET = player
 
 CONFIG += c++11
 
-QT += network \
-      xml \
-      multimedia \
-      multimediawidgets \
-      widgets \
-      webkit \
-      webkitwidgets
+QT += webkitwidgets
 
 HEADERS = \
     player.h \
@@ -29,8 +23,7 @@ HEADERS = \
     pointtracker.h \
     GraphicsVlcItem.h \
     helpmenu.h \
-    displayplot.h \
-    histogramwidget.h
+    displayplot.h
 SOURCES = main.cpp \
     player.cpp \
     playercontrols.cpp \
@@ -43,8 +36,7 @@ SOURCES = main.cpp \
     pointtracker.cpp \
     GraphicsVlcItem.cpp \
     helpmenu.cpp \
-    displayplot.cpp \
-    histogramwidget.cpp
+    displayplot.cpp
 
 maemo* {
     DEFINES += PLAYER_NO_COLOROPTIONS

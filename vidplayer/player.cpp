@@ -3,10 +3,6 @@
 #include "playercontrols.h"
 
 
-#include <QMediaService>
-#include <QMediaPlaylist>
-#include <QVideoProbe>
-#include <QMediaMetaData>
 #include <QtWidgets>
 #include <QShortcut>
 
@@ -108,13 +104,15 @@ Player::Player(QWidget *parent)
 void Player::frameUp()
 {
     player->pause();
-    player->setPosition(player->position() + (((float) frameStep) / player->length()));
+    player->setTime(player->time() + frameStep);
+    emit player->timeChanged(player->time());
 }
 
 void Player::frameDown()
 {
     player->pause();
-    player->setPosition(player->position() - (((float) frameStep) / player->length()));
+    player->setTime(player->time() - frameStep);
+    emit player->timeChanged(player->time());
 }
 
 Player::~Player()

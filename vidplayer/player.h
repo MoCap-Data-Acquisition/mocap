@@ -4,7 +4,6 @@
 #include "videowidget.h"
 
 #include <QWidget>
-#include <QVideoFrame>
 
 #include <VLCQtCore/Enums.h>
 #include <VLCQtCore/Instance.h>

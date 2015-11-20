@@ -2,7 +2,6 @@
 #define HISTOGRAMWIDGET_H
 
 #include <QThread>
-#include <QVideoFrame>
 #include <QWidget>
 
 class FrameProcessor: public QObject
