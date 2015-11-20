@@ -28,4 +28,5 @@ extern int currentObjectIndex; //current Trajectory
 extern int clickAction; //Determines what action a mouseclick will do: {nothing, set scale mode, set origin mode, point placement mode}
 extern QPoint origin;
 extern int tZero;
+extern int frameStep;
 #endif

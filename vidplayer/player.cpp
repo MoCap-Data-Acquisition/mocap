@@ -108,13 +108,13 @@ Player::Player(QWidget *parent)
 void Player::frameUp()
 {
     player->pause();
-    player->setPosition(player->position() + (20.0f / player->length()));
+    player->setPosition(player->position() + (((float) frameStep) / player->length()));
 }
 
 void Player::frameDown()
 {
     player->pause();
-    player->setPosition(player->position() - (20.0f / player->length()));
+    player->setPosition(player->position() - (((float) frameStep) / player->length()));
 }
 
 Player::~Player()

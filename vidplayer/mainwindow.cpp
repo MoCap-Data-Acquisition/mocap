@@ -5,6 +5,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QSpinBox>
 #include <QSizePolicy>
 //#include "borderlayout.h"
 
@@ -39,12 +40,27 @@ MainWindow::MainWindow(QWidget *parent) :
     thePointTracker->setMinimumWidth((int) this->width()*.41);
     layout->addWidget(player,3);
 
+    //Spinbox for frame jumps
+    QSpinBox *frameSkip = new QSpinBox;
+    frameSkip->setRange(1, 1000); //min skip is 1 frame, max skip is 1000frames
+    frameSkip->setSingleStep(1); //1 frame per click
+    frameSkip->setValue(0);
+
+    QHBoxLayout *frameSkipGroup = new QHBoxLayout();
+    QLabel *frameSkipLabel = new QLabel("Frameskip Rate:");
+    frameSkipGroup->addWidget(frameSkipLabel);
+    frameSkipGroup->addWidget(frameSkip);
+
     east->addWidget(thePointTracker);
+    east->addLayout(frameSkipGroup);
 
     layout->addLayout(east);
 
     mainLayout->addLayout(topRow, 3);
     mainLayout->addLayout(layout);
+
+    connect(frameSkip, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+            [=](int i){frameStep = i; /* ??? */ });
 
     QWidget* window = new QWidget();
     window->setLayout(mainLayout);

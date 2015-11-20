@@ -28,7 +28,9 @@ HEADERS = \
     pointtocsv.h \
     pointtracker.h \
     GraphicsVlcItem.h \
-    helpmenu.h
+    helpmenu.h \
+    displayplot.h \
+    histogramwidget.h
 SOURCES = main.cpp \
     player.cpp \
     playercontrols.cpp \
@@ -40,7 +42,9 @@ SOURCES = main.cpp \
     pointtocsv.cpp \
     pointtracker.cpp \
     GraphicsVlcItem.cpp \
-    helpmenu.cpp
+    helpmenu.cpp \
+    displayplot.cpp \
+    histogramwidget.cpp
 
 maemo* {
     DEFINES += PLAYER_NO_COLOROPTIONS
