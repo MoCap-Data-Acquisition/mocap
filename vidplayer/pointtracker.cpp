@@ -97,6 +97,7 @@ void pointtracker::on_pointsList_itemClicked(QListWidgetItem *item)
 
 void pointtracker::on_pushButton_clicked()
 {
+
     if (lastSelected >= 0 && objectsListVec[ui->objectList->currentIndex()][lastSelected].isDiscontinuity == 0) {
         objectsListVec[ui->objectList->currentIndex()][lastSelected].isDiscontinuity = 1;
         auto item = objectsListVec[ui->objectList->currentIndex()][lastSelected];
@@ -127,5 +128,6 @@ void pointtracker::on_setOriginBtn_clicked()
 
 void pointtracker::on_addPointsBtn_clicked()
 {
+    ui->setOriginBtn->setEnabled(false); //fixes a bug.
     clickAction = 3;
 }
