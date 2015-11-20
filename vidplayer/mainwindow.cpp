@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     frameSkip->setValue(0);
 
     QHBoxLayout *frameSkipGroup = new QHBoxLayout();
-    QLabel *frameSkipLabel = new QLabel("Frameskip Rate:");
+    QLabel *frameSkipLabel = new QLabel("Frameskip Rate (ms):");
     frameSkipGroup->addWidget(frameSkipLabel);
     frameSkipGroup->addWidget(frameSkip);
 
