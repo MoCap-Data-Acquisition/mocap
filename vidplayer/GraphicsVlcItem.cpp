@@ -138,7 +138,6 @@ void GraphicsVlcItem::unlockCallback(void *picture, void *const*planes)
     Q_UNUSED(planes);
 }
 
-#include <QDebug>
 void GraphicsVlcItem::displayCallback(void *picture)
 {
     Q_UNUSED(picture); // There is only one buffer.

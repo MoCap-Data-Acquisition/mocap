@@ -9,7 +9,10 @@ TARGET = player
 
 CONFIG += c++11
 
-QT += webkitwidgets
+QT += widgets \
+      webkit \
+      webkitwidgets
+
 
 HEADERS = \
     player.h \
@@ -53,7 +56,8 @@ macx {
     QMAKE_LFLAGS += -F/Library/Frameworks
     LIBS += -framework VLCQtCore -framework VLCQtWidgets
 
-    QMAKE_RPATHDIR += /usr/local/lib
+    QMAKE_RPATHDIR += /usr/local/opt/qt5/lib/
+    QMAKE_RPATHDIR += @executable_path/../Frameworks
 }
 
 target.path = $$[QT_INSTALL_EXAMPLES]/multimediawidgets/player
