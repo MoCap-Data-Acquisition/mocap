@@ -36,7 +36,8 @@ public slots:
     void frameDown();
     Vlc::State getPlayerState();
     float currentPosition();
-    qint64 currentTime();
+    int currentTime();
+    int currentLength();
 
 signals:
     void fullScreenChanged(bool fullScreen);
@@ -45,7 +46,7 @@ private slots:
     void open();
 
     void previousClicked();
-    void positionChanged(float position);
+    void timeChanged(int time);
 
     void jump(const QModelIndex &index);
 

@@ -61,7 +61,7 @@ void PlayerControls::playClicked()
     switch (playerState) {
     case Vlc::State::Stopped:
     case Vlc::State::Paused:
-        if (((Player *) parent())->currentPosition() < 1.0) emit play();
+        if (((Player *) parent())->currentTime() < ((Player *) parent())->currentLength() - 100) emit play();
         break;
     case Vlc::State::Playing:
         emit pause();
