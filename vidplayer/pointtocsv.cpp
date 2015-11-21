@@ -24,8 +24,8 @@ bool writePointsToCSV(const QString &filename) {
         Q_FOREACH(point_t p, objectsListVec[i]) {
             if(p.isDiscontinuity == 1){
                 discCounter += 1;
-                out << p.ID << ", " << p.x << ", " << p.y << ", " << p.time << ", " << (p.isDiscontinuity + discCounter - 1) << "\n";
-                out << p.ID << ", " << p.x << ", " << p.y << ", " << p.time << ", " << (p.isDiscontinuity + discCounter - 1) << "\n";
+                out << p.ID << ", " << p.x << ", " << p.y << ", " << p.time << ", " << (discCounter - 1) << "\n";
+         //       out << p.ID << ", " << p.x << ", " << p.y << ", " << p.time << ", " << (p.isDiscontinuity + discCounter - 1) << "\n";
             }
             out << p.ID << ", " << p.x << ", " << p.y << ", " << p.time << ", " << discCounter << "\n";
         }
