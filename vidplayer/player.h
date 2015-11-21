@@ -62,15 +62,10 @@ private:
     void handleCursor(Vlc::State status);
     void updateDurationInfo(qint64 currentInfo);
 
-//    VideoWidget *videoWidget; making this public....
     QLabel *coverLabel;
     QLabel *labelDuration;
     QPushButton *nextFrame;
     QPushButton *prevFrame;
-   // QPushButton *plotDataButton;
-    //QDialog *plotData;
-
-    //NewWindow *newPlotWindow;
 
     VlcInstance *vlc;
     VlcMediaPlayer *player;
