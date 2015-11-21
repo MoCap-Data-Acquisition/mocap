@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QSpinBox *frameSkip = new QSpinBox;
     frameSkip->setRange(1, 1000); //min skip is 1 frame, max skip is 1000frames
     frameSkip->setSingleStep(1); //1 frame per click
-    frameSkip->setValue(0);
+    frameSkip->setValue(20);
 
     QHBoxLayout *frameSkipGroup = new QHBoxLayout();
     QLabel *frameSkipLabel = new QLabel("Frameskip Rate (ms):");
@@ -60,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mainLayout->addLayout(layout);
 
     connect(frameSkip, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
-            [=](int i){frameStep = i; /* ??? */ });
+            [=](int i){frameStep = i;});
 
     QWidget* window = new QWidget();
     window->setLayout(mainLayout);
