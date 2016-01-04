@@ -1,36 +1,50 @@
-# VLC-Qt Examples [![Build Status][travis-img]][travis] [![Build status][appveyor-img]][appveyor]
-[![Homepage][web-img]][web]
-[![Latest release][release-img]][release]
+# Open Source MoCap - Dynamics Trajectory Data Acquisition System 
+A simple and  easy to use simple Motion Capturing system for Dynamics Engineering courses featuring:
+  - Video Playback with Useful User Controls
+  - Multiple Trajectory Tracking
+  - Conversion from Pixels to any Distance Measurement
+  - Visualizing Current Data with Graphs
+  - Exporting Captured Data as a CSV file for Analysis (Including a Matlab
+	script to automatically read and import the data).
+  - Supports Windows, OSX, and Linux.
 
-VLC-Qt is a free library used to connect [Qt](http://qt.io) and
-[libVLC](http://videolan.org) libraries. It contains core classes for main
-media playback and also some GUI classes for faster media player development.
+## Get it!
+  - Windows Executable 
+  - OSX Executable
+  - Build It Yourself Instructions!
 
-This repository contains various examples of how to use the library in your
-application.
+## [User Manual]()
 
-Contributions are welcome. See [CONTRIBUTING.md]
-(https://github.com/vlc-qt/examples/blob/master/CONTRIBUTING.md)
-for more details.
+-------------------------------------------------------------------
+## Build Instructions
 
+### Build system selection
+If you want to use CMake, you can delete
+  - simple-player.pro
+  - src/src.pro
 
-## List of Examples
-  - [Simple Player](https://github.com/vlc-qt/examples/tree/master/simple-player) (MIT)
-  - [QML Player](https://github.com/vlc-qt/examples/tree/master/qml-player) (MIT)
-
-
-## Licensing info
-
-Each example may be used under the terms of the license noted in the
-file LICENSE.md in example subfolder.
+If you want to use qmake, you can delete
+  - CMakeLists.txt
+  - cmake/*
+  - src/CMakeLists.txt
 
 
-[web]: http://vlc-qt.tano.si
-[release]: https://github.com/vlc-qt/examples/releases
-[travis]: https://travis-ci.org/vlc-qt/examples
-[appveyor]: https://ci.appveyor.com/project/ntadej/examples
+### Platform specific notes
 
-[web-img]: https://img.shields.io/badge/web-vlc--qt.tano.si-green.svg
-[release-img]: https://img.shields.io/github/release/vlc-qt/examples.svg
-[travis-img]: https://travis-ci.org/vlc-qt/examples.svg?branch=master
-[appveyor-img]: https://ci.appveyor.com/api/projects/status/p8x4yi0as9bc1ts1?svg=true
+#### Windows
+
+You can install all required libraries with (CMake only)
+```
+make install
+make windows
+```
+
+#### OS X
+
+Create package using (CMake only)
+```
+make install
+make dmg
+```
+
+#### Linux
