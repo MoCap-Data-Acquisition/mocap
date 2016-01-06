@@ -1,3 +1,0 @@
-/home/paul/Documents/programming/C++/C++/Open Source MoCap/OS-MoCap/Build/src/CMakeFiles/OS-MoCap_automoc.dir
-/home/paul/Documents/programming/C++/C++/Open Source MoCap/OS-MoCap/Build/src/CMakeFiles/OS-MoCap.dir
-/home/paul/Documents/programming/C++/C++/Open Source MoCap/OS-MoCap/Build/CMakeFiles/uninstall.dir

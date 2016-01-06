@@ -51,9 +51,9 @@ maemo* {
 
 # Linux
 unix:!macx {
-    LIBS       += -lVLCQtCore -lVLCQtWidgets
-    INCLUDEPATH += ~/Documents/programming/C++/vlc-qt-build/include
-    INCLUDEPATH += ~/Documents/programming/C++/vlc-qt-build/src
+    LIBS        += -lVLCQtCore -lVLCQtWidgets
+    INCLUDEPATH += ./../../vlc-qt-build/include
+    INCLUDEPATH += ./../../vlc-qt-build/src
 }
 
 # OSX
@@ -64,13 +64,17 @@ macx {
 
     QMAKE_RPATHDIR += /usr/local/opt/qt5/lib/
     QMAKE_RPATHDIR += @executable_path/../Frameworks
+    ICON = mocap.icns
 }
 
 # Windows (MINGW)
 win32 {
-    CONFIG(release, debug|release): LIBS += -L$$PWD/../../Downloads/vlcqt/bin/ -llibVLCQtCore -llibVLCQtWidgets
-    CONFIG(debug, debug|release): LIBS += -L$$PWD/../../Downloads/vlcqt/bin/ -llibVLCQtCored -llibVLCQtWidgetsd
+    LIBS += -L$$PWD/../lib/msvc/vlcqt/bin/ -L$$PWD/../lib/msvc/vlcqt/lib/
+    CONFIG(release, debug|release): LIBS += -lVLCQtCore -lVLCQtWidgets
+    CONFIG(debug, debug|release): LIBS += -lVLCQtCored -lVLCQtWidgetsd
 
-    INCLUDEPATH += $$PWD/../../Downloads/vlcqt/include
-    DEPENDPATH += $$PWD/../../Downloads/vlcqt/include
+    INCLUDEPATH += $$PWD/../lib/msvc/vlcqt/include
+    DEPENDPATH += $$PWD/../lib/msvc/Downloads/vlcqt/include
+
+    RC_FILE = mocap.rc
 }
