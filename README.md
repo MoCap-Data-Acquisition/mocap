@@ -13,38 +13,38 @@ A simple and  easy to use simple Motion Capturing system for Dynamics Engineerin
   - OSX Executable
   - Build It Yourself Instructions!
 
-## [User Manual]()
-
 -------------------------------------------------------------------
 ## Build Instructions
 
-### Build system selection
-If you want to use CMake, you can delete
-  - simple-player.pro
-  - src/src.pro
+### Building From Source
+This is the *easiest* way to build this program from source. Your results may
+vary depending on which operating system you use (Windows can be really
+annoying to get everything working).
+#### Required Dependencies
+Please make sure that each dependency is installed or built, **Make note of
+where everything is installed**.
+   1. Your standard build tools
+	  -   Windows:   MSVC or Mingw
+	  - OSX/Linux:   gcc or Clang
+   3. [VLC](http://www.videolan.org/vlc/index.html)
+   2. [VLC-Qt](https://vlc-qt.tano.si/)
+	  - Make sure you get the proper version.
+   3. [Qt](http://www.qt.io/download/)
+	  - Click the link for open source development.
+	  - **For Windows Users** unless it's February 9th, 2016 get the [beta
+		version](http://download.qt.io/development_releases/qt/5.6/5.6.0-beta/qt-opensource-windows-x86-msvc2015_64-5.6.0-beta.exe)
 
-If you want to use qmake, you can delete
-  - CMakeLists.txt
-  - cmake/*
-  - src/CMakeLists.txt
-
-
-### Platform specific notes
-
-#### Windows
-
-You can install all required libraries with (CMake only)
+#### Building
+Once everything is setup you should be able to either compile from Qt Creator,
+or run:
 ```
-make install
-make windows
+qmake
+make
 ```
-
-#### OS X
-
-Create package using (CMake only)
-```
-make install
-make dmg
-```
-
-#### Linux
+#### Fixing build problems
+If there are any issues during the build process, check the **OS-Mocap.pro**
+file and make sure that the dependencies are in the right locations, or change
+the paths in the OS-Mocap.pro file. There may also be an issue where the
+dynamic libraries (.dll, .dylib, or .so) aren't found during the build process,
+which case the compiler will tell you where it's missing from so you might have
+to copy it over.
