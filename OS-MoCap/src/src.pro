@@ -64,7 +64,7 @@ macx {
 
     QMAKE_RPATHDIR += /usr/local/opt/qt5/lib/
     QMAKE_RPATHDIR += @executable_path/../Frameworks
-    ICON = mocap.icns
+    ICON = ../../icon/icon.icns
 }
 
 # Windows (MINGW)

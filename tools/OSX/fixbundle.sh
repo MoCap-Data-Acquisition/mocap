@@ -9,7 +9,7 @@ copyFramework() {
   rm "$todir/Headers"
 }
 
-cp -R "OS-MoCap/html" "OS-MoCap.app/Contents/MacOS/html"
+cp -R "OS-MoCap/src/html" "OS-MoCap.app/Contents/MacOS/html"
 
 macdeployqt "OS-MoCap.app"
 copyFramework "/Library/Frameworks/VLCQtCore.framework"
