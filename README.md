@@ -7,10 +7,10 @@ A simple and  easy to use simple Motion Capturing system for Dynamics Engineerin
   - Exporting Captured Data as a CSV file for Analysis (Including a Matlab
 	script to automatically read and import the data).
   - Supports Windows, OSX, and Linux.
+  - Everything should work fine, but if you have any issues please create a github account and [submit a bug report](https://github.com/MoCap-Data-Acquisition/mocap/issues) or a pull request
 
 ## Get it!
-  - Windows Executable 
-  - OSX Executable
+  - [Prebuilt binary for Windows or OSX](https://github.com/MoCap-Data-Acquisition/mocap/releases/latest)
   - Build It Yourself Instructions!
 
 -------------------------------------------------------------------
@@ -31,8 +31,9 @@ where everything is installed**.
 	  - Make sure you get the proper version.
    3. [Qt](http://www.qt.io/download/)
 	  - Click the link for open source development.
-	  - **For Windows Users** unless it's February 9th, 2016 get the [beta
+	  - **For Windows Users** unless it's after February 9th, 2016 get the [QT 5.6 beta
 		version](http://download.qt.io/development_releases/qt/5.6/5.6.0-beta/qt-opensource-windows-x86-msvc2015_64-5.6.0-beta.exe)
+      - Download Visual Studio 2015 (even the free version should be fine)
 
 #### Building
 Once everything is setup you should be able to either compile from Qt Creator,
